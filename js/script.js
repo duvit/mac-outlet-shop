@@ -13,7 +13,7 @@ for (i = 0; i < filterArr.length; i++) {
   });
 }
 
-const itemsArr = [...items];
+const itemsArr = [...items2];
 const htmlContainer = document.querySelector(".container");
 
 const cardTemplate = document.querySelector("#cardTemplate");
@@ -21,11 +21,12 @@ const cardTemplate = document.querySelector("#cardTemplate");
 function remderItemCard(item) {
   let template = cardTemplate.content.cloneNode(true);
 
-  template.querySelector("#itemImg").src = './img/' + item.imgUrl
+  template.querySelector("#itemImg").src = "./img/" + item.imgUrl;
   template.querySelector("#itemTitle").innerText = item.name;
   template.querySelector("#itemStockLeft").innerText = item.orderInfo.inStock;
   template.querySelector("#itemPrice").innerText = item.price;
   template.querySelector("#itemReview").innerText = item.orderInfo.reviews;
+  template.querySelector("#orders").innerText = item.orderInfo.orders;
 
   return template;
 }

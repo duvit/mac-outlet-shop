@@ -31,7 +31,12 @@
         />
         <h3 class="item-box__title" id="itemTitle"></h3>
         <div class="item-box__status">
-          <div class="item-box__amount"> <img id="itemStockLeftIcon" class="item-stockleft-icon" src="./img/icons/in_stock.svg">
+          <div class="item-box__amount">
+            <img
+              id="itemStockLeftIcon"
+              class="item-stockleft-icon"
+              src="./img/icons/in_stock.svg"
+            />
             <span id="itemStockLeft"></span> left in stock
           </div>
           <h5 class="item-box__price">Price: <span id="itemPrice"></span>$</h5>
@@ -57,12 +62,46 @@
           <img src="./img/icons/cart.svg" class="header__panel__cart" />
         </div>
         <div class="header__banner">
-          <div class="header__banner__image">
+          <div class="header__banner__slideshow-container">
+            <div class="mySlides fade">
+              <img
+                class="header__banner__image"
+                src="./img/banners/air_pods_max_banner.jpg"
+              />
+              <div class="header__banner__title">Airpods max</div>
+              <button class="header__banner__title__btn add-cart-btn">
+                Add to cart
+              </button>
+            </div>
+
+            <div class="mySlides fade">
+              <img
+                class="header__banner__image"
+                src="./img/banners/airpods_pro_banner.png"
+              />
+              <div class="header__banner__title">Airpods pro</div>
+              <button class="header__banner__title__btn add-cart-btn">
+                Add to cart
+              </button>
+            </div>
+
+            <div class="mySlides fade">
+              <img
+                class="header__banner__image"
+                src="img/banners/apple_tv_banner.png"
+              />
+              <div class="header__banner__title">Apple TV</div>
+              <button class="header__banner__title__btn add-cart-btn">
+                Add to cart
+              </button>
+            </div>
+          </div>
+          <!-- <div class="header__banner__image">
             <h1 class="header__banner__title">AirPods Pro</h1>
             <button class="header__banner__title__btn add-cart-btn">
               Add to cart
             </button>
-          </div>
+          </div> -->
         </div>
       </header>
 
@@ -138,37 +177,37 @@
               <label class="filter-panel__color"
                 >Red
                 <input type="checkbox" checked="checked" />
-                <span class="filter-panel__color-checkmark"></span>
+                <span class="filter-panel__color-checkmark red"></span>
               </label>
               <label class="filter-panel__color"
                 >Green
                 <input type="checkbox" />
-                <span class="filter-panel__color-checkmark"></span>
+                <span class="filter-panel__color-checkmark green"></span>
               </label>
-              <label class="filter-panel__color"
+              <label class="filter-panel__color "
                 >Blue
                 <input type="checkbox" />
-                <span class="filter-panel__color-checkmark"></span>
+                <span class="filter-panel__color-checkmark blue"></span>
               </label>
               <label class="filter-panel__color"
                 >White
                 <input type="checkbox" />
-                <span class="filter-panel__color-checkmark"></span>
+                <span class="filter-panel__color-checkmark white"></span>
               </label>
               <label class="filter-panel__color"
                 >Black
                 <input type="checkbox" />
-                <span class="filter-panel__color-checkmark"></span>
+                <span class="filter-panel__color-checkmark black"></span>
               </label>
               <label class="filter-panel__color"
                 >Silver
                 <input type="checkbox" />
-                <span class="filter-panel__color-checkmark"></span>
+                <span class="filter-panel__color-checkmark silver"></span>
               </label>
               <label class="filter-panel__color"
                 >Bronze
                 <input type="checkbox" />
-                <span class="filter-panel__color-checkmark"></span>
+                <span class="filter-panel__color-checkmark bronze"></span>
               </label>
             </div>
           </div>

@@ -24,6 +24,9 @@ function remderItemCard(item) {
   template.querySelector("#itemImg").src = "./img/" + item.imgUrl;
   template.querySelector("#itemTitle").innerText = item.name;
   template.querySelector("#itemStockLeft").innerText = item.orderInfo.inStock;
+  template.querySelector("#itemStockLeft").innerText = item.orderInfo.inStock;
+  template.querySelector("#itemStockLeftIcon").src = item.orderInfo.inStock > 0 ? './img/icons/in_stock.svg' : './img/icons/not_in_stock.svg';
+  template.querySelector("#itemStockLeftIcon").style = item.orderInfo.inStock > 0 ? 'border: 1px solid green; border-radius: 50%;' : 'border: none';
   template.querySelector("#itemPrice").innerText = item.price;
   template.querySelector("#itemReview").innerText = item.orderInfo.reviews;
   template.querySelector("#orders").innerText = item.orderInfo.orders;

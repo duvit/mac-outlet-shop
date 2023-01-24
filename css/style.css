@@ -23,18 +23,84 @@ html {
   border-radius: 50%;
 }
 
+body {
+  font-family: Verdana, sans-serif;
+}
+.mySlides {
+  display: none;
+}
+img {
+  vertical-align: middle;
+}
+
+/* Slideshow container */
+.slideshow-container {
+  max-width: 1000px;
+  position: relative;
+  margin: auto;
+}
+
+.mySlides img {
+  position: relative;
+}
+
+.header__banner__title__btn {
+  padding: 8px 12px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 140px;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.8s;
+  animation-name: fade;
+  animation-duration: 1.8s;
+}
+
+@-webkit-keyframes fade {
+  from {
+    opacity: 0.3;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0.3;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .header__banner__image {
-  display: flex;
-  flex-direction: column;
+  /* display: flex;
+  flex-direction: column; */
   margin: 25px auto 0;
   height: 512px;
   width: 100%;
   bottom: 0;
-  background-image: url(/img/banners/airpods_pro_banner.png);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  /* position: relative; */
+  position: relative;
   z-index: 1;
   padding: 190px auto;
   text-align: center;
@@ -48,7 +114,15 @@ html {
   font-weight: 400;
   font-size: 72px;
   line-height: 84px;
-  color: #ffffff;
+  color: rgba(0, 0, 0, 0.842);
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  text-align: center;
+  bottom: 240px;
+  z-index: 2;
+  -webkit-text-stroke: 0.5px rgb(255, 255, 255); /* width and color */
 }
 
 .add-cart-btn {
@@ -191,7 +265,7 @@ html {
   content: url(/img/icons/arrow_left.svg);
   position: absolute;
   top: 15px;
-  right: 10px
+  right: 10px;
 }
 
 .active:after {
@@ -269,14 +343,13 @@ html {
   font-family: "Roboto";
   font-style: normal;
   font-weight: 400;
-  font-size: 18px;
-  line-height: 23px;
+  font-size: 14px;
   color: #000000;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  padding: 20px 0 10px 55px;
+  padding: 20px 0 0 55px;
 }
 
 .filter-panel__color input {
@@ -288,22 +361,49 @@ html {
 /* Create a custom radio button */
 .filter-panel__color-checkmark {
   position: absolute;
-  top: 18px;
+  top: 16px;
   left: 20px;
-  height: 25px;
-  width: 25px;
-  background-color: #eee;
+  height: 20px;
+  width: 20px;
+  background-color: rgba(151, 151, 151, 0.2);
+  border: 0.5px solid rgb(151, 151, 151, 0.2);
   border-radius: 30%;
 }
 
 /* On mouse-over, add a grey background color */
-.filter-panel__color:hover input ~ .filter-panel__color-checkmark {
-  background-color: #ccc;
-}
+/* .filter-panel__color:hover input ~ .filter-panel__color-checkmark {
+  border: 1px solid rgb(151, 151, 151);
+  background-color: rgb(151, 151, 151);
+} */
 
 /* When the radio button is checked, add a blue background */
-.filter-panel__color input:checked ~ .filter-panel__color-checkmark {
-  background-color: #6b6b6b;
+
+.filter-panel__color input:checked ~ .red-checkmark {
+  background-color: red;
+}
+
+.filter-panel__color input:checked ~ .green-checkmark {
+  background-color: green;
+}
+
+.filter-panel__color input:checked ~ .blue-checkmark {
+  background-color: blue;
+}
+
+.filter-panel__color input:checked ~ .white-checkmark {
+  background-color: white;
+}
+
+.filter-panel__color input:checked ~ .black-checkmark {
+  background-color: black;
+}
+
+.filter-panel__color input:checked ~ .silver-checkmark {
+  background-color: silver;
+}
+
+.filter-panel__color input:checked ~ .bronze-checkmark {
+  background-color: rgb(205, 127, 50);
 }
 
 /* Create the indicator (the dot/circle - hidden when not checked) */
@@ -313,12 +413,12 @@ html {
   display: none;
 }
 
-/* Show the indicator (dot/circle) when checked */
+/* Show the indicator when checked */
 .filter-panel__color input:checked ~ .filter-panel__color-checkmark:after {
   display: block;
 }
 
-/* Style the indicator (dot/circle) */
+/* Style the indicator */
 .filter-panel__color .filter-panel__color-checkmark:after {
   top: 9px;
   left: 9px;
@@ -383,6 +483,19 @@ html {
 .item-box__status span {
   font-weight: 700;
   display: inline;
+}
+
+/* .item-box__amount {
+  align-items: center;
+} */
+
+.item-box__stock {
+  display: inline;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  margin-top: -2px;
 }
 
 .item-box__price {

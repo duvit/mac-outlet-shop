@@ -14,7 +14,6 @@ for (i = 0; i < filterArr.length; i++) {
   });
 }
 
-
 //Slider script
 var slideIndex = 0;
 showSlides();
@@ -61,6 +60,8 @@ function remderItemCard(item) {
   template.querySelector("#itemPrice").innerText = item.price;
   template.querySelector("#itemReview").innerText = item.orderInfo.reviews;
   template.querySelector("#orders").innerText = item.orderInfo.orders;
+  template.querySelector("#itemBoxbtn").classList +=
+    item.orderInfo.inStock > 0 ? " item-box__btn-active" : " item-box__btn-disable";
 
   return template;
 }

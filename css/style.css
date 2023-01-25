@@ -2,7 +2,7 @@ html {
   font-family: "Roboto", sans-serif;
 }
 .wrapper {
-  width: 1024px;
+  max-width: 1024px;
   margin: 0 auto;
 }
 
@@ -38,7 +38,7 @@ img {
 
 /* Slideshow container */
 .header__banner__slideshow-container {
-  max-width: 1000px;
+  width: 1024px;
   position: relative;
   margin: auto;
 }
@@ -224,6 +224,7 @@ img {
 
 .filter-panel__item {
   width: 323px;
+
 }
 
 .accordion {
@@ -241,6 +242,7 @@ img {
   height: 50.89px;
   background: #eeeff0;
   border-radius: 10px;
+  
 }
 
 .active,
@@ -304,13 +306,14 @@ img {
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.2s ease-out;
-  background: #ffffff;
+  background: #5e5d5d28;
   border: 1px solid #dddada46;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.35);
   border-radius: 5px;
   display: flex;
   flex-direction: column;
   margin: 2px;
+  
 }
 
 .filter-panel__input {
@@ -331,7 +334,7 @@ img {
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
-  line-height: 20px;
+  line-height: 2px;
   color: #000000;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -342,68 +345,51 @@ img {
 
 .filter-panel__color input {
   position: absolute;
-  opacity: 0;
+  display: none;
   cursor: pointer;
 }
 
 /* Create a custom radio button */
 .filter-panel__color-checkmark {
   position: absolute;
-  top: 18px;
+  top: 11px;
   left: 20px;
   height: 20px;
   width: 20px;
-  background-color: rgba(66, 66, 66, 0.247);
+  background-color: rgba(66, 66, 66, 0.1);
   border: 1px solid rgba(66, 66, 66, 0.274);
   border-radius: 30%;
 }
 
 /* On mouse-over, add a grey background color */
-.filter-panel__color:hover input ~ .filter-panel__color-checkmark {
-  background-color: #ccc;
-}
 
 /* When the radio button is checked, add a blue background */
 .filter-panel__color input:checked ~ .filter-panel__color-checkmark.red {
   background-color: red;
-  height: 21px;
-  width: 21px;
 }
 
 .filter-panel__color input:checked ~ .filter-panel__color-checkmark.green {
   background-color: green;
-  height: 21px;
-  width: 21px;
 }
 
 .filter-panel__color input:checked ~ .filter-panel__color-checkmark.blue {
   background-color: blue;
-  height: 21px;
-  width: 21px;
 }
 
 .filter-panel__color input:checked ~ .filter-panel__color-checkmark.white {
   background-color: white;
-  height: 21px;
-  width: 21px;
 }
 
 .filter-panel__color input:checked ~ .filter-panel__color-checkmark.black {
   background-color: black;
-  height: 21px;
-  width: 21px;
 }
 
 .filter-panel__color input:checked ~ .filter-panel__color-checkmark.silver {
-  background-color: rgb(145, 140, 140);
-  height: 21px;
-  width: 21px;
+  background-color: rgb(163, 163, 163);
 }
 
 .filter-panel__color input:checked ~ .filter-panel__color-checkmark.bronze {
-  background-color: rgb(185, 92, 16);
-  height: 21px;
-  width: 21px;
+  background-color: rgb(205, 127, 50);
 }
 
 /* Create the indicator (the dot/circle - hidden when not checked) */
@@ -455,7 +441,7 @@ img {
 }
 
 .item-box__img {
-  width: 200px;
+  max-width: 200px;
   height: 200px;
 }
 
@@ -558,6 +544,11 @@ img {
   display: inline;
 }
 
-.item-box__btn {
+.item-box__btn-active {
   margin: 10px auto 15px;
+}
+
+.item-box__btn-disable {
+  margin: 10px auto 15px;
+  background: #DDDDDD;
 }

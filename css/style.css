@@ -1,6 +1,7 @@
 html {
   font-family: "Roboto", sans-serif;
 }
+
 .wrapper {
   max-width: 1024px;
   margin: 0 auto;
@@ -222,10 +223,7 @@ img {
   border-radius: 5px;
 }
 
-.filter-panel__item {
-  width: 323px;
 
-}
 
 .accordion {
   position: relative;
@@ -242,7 +240,6 @@ img {
   height: 50.89px;
   background: #eeeff0;
   border-radius: 10px;
-  
 }
 
 .active,
@@ -264,6 +261,29 @@ img {
   position: absolute;
   top: 15px;
   right: 10px;
+}
+
+.filter-panel {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1px;
+  color: #000000;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  padding: 20px 0 10px 55px;
+}
+
+.filter-panel__item {
+  width: 323px;
 }
 
 .filter-panel__price-item {
@@ -298,6 +318,29 @@ img {
   background: #ffffff;
   border: 1px solid #e2e2e2;
   border-radius: 5px;
+  display: block;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  color: #000000;
+  text-align: center;
+}
+
+.filter-panel__area:focus {
+  outline: none;
+}
+
+.filter-panel__price-item input::-webkit-outer-spin-button,
+.filter-panel__price-item input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.filter-panel__area input[type="number"] {
+  -moz-appearance: textfield;
 }
 
 .filter-panel__block {
@@ -305,15 +348,19 @@ img {
   background-color: white;
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.2s ease-out;
-  background: #5e5d5d28;
+  transition: max-height 0.1s ease-out;
+  background: rgba(0, 0, 0, 0.05);
   border: 1px solid #dddada46;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.35);
   border-radius: 5px;
   display: flex;
   flex-direction: column;
   margin: 2px;
-  
+}
+
+.filter-panel__block-memory {
+  display: flex;
+  flex-direction: row;
 }
 
 .filter-panel__input {
@@ -324,26 +371,14 @@ img {
   justify-content: space-between;
 }
 
-.filter-panel__color {
-  display: block;
-  position: relative;
-  padding-left: 35px;
-  margin-bottom: 12px;
-  cursor: pointer;
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 2px;
-  color: #000000;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  padding: 20px 0 10px 55px;
+
+
+.filter-panel__checkbox {
+  padding-left: 45px;
+  padding-top: 18px;
 }
 
-.filter-panel__color input {
+.filter-panel__item input {
   position: absolute;
   display: none;
   cursor: pointer;
@@ -361,51 +396,95 @@ img {
   border-radius: 30%;
 }
 
-/* On mouse-over, add a grey background color */
+.filter-panel__checkmark {
+  position: absolute;
+  top: 11px;
+  left: 20px;
+  height: 15px;
+  width: 15px;
+  background-color: rgba(66, 66, 66, 0.1);
+  border: 1px solid rgba(66, 66, 66, 0.274);
+  border-radius: 30%;
+}
 
-/* When the radio button is checked, add a blue background */
-.filter-panel__color input:checked ~ .filter-panel__color-checkmark.red {
+/* Create the checkmark/indicator (hidden when not checked) */
+.filter-panel__checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.filter-panel input:checked ~ .filter-panel__checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.filter-panel .filter-panel__checkmark:after {
+  left: 3px;
+  width: 7px;
+  height: 10px;
+  border: solid rgba(0, 0, 0, 0.664);
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.filter-panel input:checked ~ .filter-panel__color-checkmark.red {
   background-color: red;
 }
 
-.filter-panel__color input:checked ~ .filter-panel__color-checkmark.green {
-  background-color: green;
-}
-
-.filter-panel__color input:checked ~ .filter-panel__color-checkmark.blue {
-  background-color: blue;
-}
-
-.filter-panel__color input:checked ~ .filter-panel__color-checkmark.white {
-  background-color: white;
-}
-
-.filter-panel__color input:checked ~ .filter-panel__color-checkmark.black {
+.filter-panel input:checked ~ .filter-panel__color-checkmark.black {
   background-color: black;
 }
 
-.filter-panel__color input:checked ~ .filter-panel__color-checkmark.silver {
+.filter-panel input:checked ~ .filter-panel__color-checkmark.blue {
+  background-color: blue;
+}
+
+.filter-panel input:checked ~ .filter-panel__color-checkmark.gold {
+  background-color: gold;
+}
+
+.filter-panel input:checked ~ .filter-panel__color-checkmark.green {
+  background-color: green;
+}
+
+.filter-panel input:checked ~ .filter-panel__color-checkmark.white {
+  background-color: white;
+}
+
+.filter-panel input:checked ~ .filter-panel__color-checkmark.grey {
+  background-color: grey;
+}
+
+.filter-panel input:checked ~ .filter-panel__color-checkmark.yellow {
+  background-color: yellow;
+}
+
+.filter-panel input:checked ~ .filter-panel__color-checkmark.silver {
   background-color: rgb(163, 163, 163);
 }
 
-.filter-panel__color input:checked ~ .filter-panel__color-checkmark.bronze {
+.filter-panel input:checked ~ .filter-panel__color-checkmark.bronze {
   background-color: rgb(205, 127, 50);
 }
 
 /* Create the indicator (the dot/circle - hidden when not checked) */
-.filter-panel__color:after {
+.filter-panel:after {
   content: "";
   position: absolute;
   display: none;
 }
 
 /* Show the indicator (dot/circle) when checked */
-.filter-panel__color input:checked ~ .filter-panel__color-checkmark:after {
+.filter-panel input:checked ~ .filter-panel__color-checkmark:after {
   display: block;
 }
 
 /* Style the indicator (dot/circle) */
-.filter-panel__color .filter-panel__color-checkmark:after {
+.filter-panel .filter-panel__color-checkmark:after {
   top: 9px;
   left: 9px;
   width: 8px;
@@ -550,5 +629,5 @@ img {
 
 .item-box__btn-disable {
   margin: 10px auto 15px;
-  background: #DDDDDD;
+  background: #dddddd;
 }

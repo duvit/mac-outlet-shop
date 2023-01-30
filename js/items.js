@@ -1425,7 +1425,7 @@ const items = [
 
 const items2 = [
   {
-     d: 1,
+    id: 1,
     category: "mac",
     imgUrl: "items/macbook-air.png",
     name: "MacBook Air",

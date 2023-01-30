@@ -37,38 +37,12 @@ function showSlides() {
   setTimeout(showSlides, 3000);
 }
 
-// Get the modal
-var modal = document.getElementById('myModal');
-
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks the button, open the modal 
-btn.onclick = function() {
-    modal.style.display = "block";
-}
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-    modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
-
 const itemsArr = [...items2];
 const htmlContainer = document.querySelector(".container");
 
 const cardTemplate = document.querySelector("#cardTemplate");
 
-function remderItemCard(item) {
+function renderItemCard(item) {
   let template = cardTemplate.content.cloneNode(true);
 
   template.querySelector("#itemImg").src = "./img/" + item.imgUrl;
@@ -84,15 +58,85 @@ function remderItemCard(item) {
       ? "border: 1px solid green; border-radius: 50%;"
       : "border: none";
   template.querySelector("#itemPrice").innerText = item.price;
-  template.querySelector("#itemReview").innerText = item.orderInfo.reviews;
+  template.querySelector("#itemReview").innerText =
+    item.orderInfo.reviews + "%";
   template.querySelector("#orders").innerText = item.orderInfo.orders;
   template.querySelector("#itemBoxbtn").classList +=
-    item.orderInfo.inStock > 0 ? " item-box__btn-active" : " item-box__btn-disable";
+    item.orderInfo.inStock > 0
+      ? " item-box__btn-active"
+      : " item-box__btn-disable";
+  template.querySelector(".item-box__img").dataset.dataId = item.id;
+  // console.log(template.querySelector(".item-box").dataset.dataId)
 
   return template;
 }
 
 itemsArr.forEach((item) => {
-  let card = remderItemCard(item);
+  let card = renderItemCard(item);
   htmlContainer.append(card);
 });
+
+const modalTeamplate = document.querySelector("#modalTeamplate");
+const wrapper = document.querySelector(".wrapper");
+
+const container = document.querySelectorAll(".item-box");
+
+function createModalWindow(actingItem) {
+  let template = modalTeamplate.content.cloneNode(true);
+  // console.log(e.target);
+
+  // const actingItem = array.find((el) => {
+  //   return el.id === +e.target.dataset.dataId;
+  // });
+
+  const modalContent = document.querySelector(".modal-content");
+  modalContent.innerHTML = "";
+
+  template.querySelector("#detailCartImg").src = "./img/" + actingItem.imgUrl;
+  template.querySelector("#itemTitle").innerText = actingItem.name;
+  template.querySelector("#itemPrice").innerText = actingItem.price;
+  template.querySelector("#itemReview").innerText =
+    actingItem.orderInfo.reviews + "%";
+  template.querySelector("#detailCharColor").innerText = actingItem.color;
+
+  if (actingItem.os) {
+    template.querySelector("#detailCharOS").innerText = actingItem.os;
+  } else {
+    template.querySelector("#detailCharOS").parentNode.style.display = "none";
+  }
+
+  template.querySelector("#detailCharChip").innerText = actingItem.chip.name;
+  template.querySelector("#detailCharHeight").innerText =
+    actingItem.size.height;
+  template.querySelector("#detailCharWidth").innerText = actingItem.size.width;
+  template.querySelector("#detailCharDepth").innerText = actingItem.size.depth;
+  template.querySelector("#detailCharWeight").innerText =
+    actingItem.size.weight;
+    
+  modalContent.append(template);
+  modal.style.display = "block";
+}
+
+// const chlidrenArr = [...elem.children];
+
+// chlidrenArr.forEach((el) =>
+// el.addEventListener("click", createModalWindow(e))
+// );
+
+container.forEach((elem) =>
+  elem.addEventListener("click", function (e) {
+    const actingItem = itemsArr.find((el) => {
+      return el.id === +e.target.dataset.dataId;
+    });
+
+    createModalWindow(actingItem);
+  })
+);
+
+const modal = document.getElementById("myModal");
+
+window.onclick = function (event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+};

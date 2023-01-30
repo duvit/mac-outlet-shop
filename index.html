@@ -55,41 +55,72 @@
       </div>
     </template>
 
-    <!-- Trigger/Open The Modal -->
-    <button id="myBtn">Open Modal</button>
-
-    <!-- The Modal -->
-    <div id="myModal" class="modal">
-      <!-- Modal content -->
-      <div class="modal-content">
-        <span class="close">×</span>
-        <p>Some text in the Modal..</p>
-      </div>
-    </div>
-
-    <div class="detail-cart">
-      <div class="detail-cart__item">
-        <img class="detail-cart__img" src="./img/items/apple-tv.jpeg" />
-      </div>
-      <div class="detail-cart__item">
-        <div class="item-box__stats">
-          <div class="item-box__reviews">
-            <p><span id="itemReview"></span> Positive reviews</p>
-            <p>Above avarage</p>
+    <template id="modalTeamplate">
+      <div class="detail-cart">
+        <div class="detail-cart__item">
+          <img
+            class="detail-cart__img"
+            id="detailCartImg"
+            src="./img/items/apple-tv.jpeg"
+          />
+        </div>
+        <div class="detail-cart__item detail-cart__stats">
+          <h3
+            class="item-box__title item-box__title-detail-cart"
+            id="itemTitle"
+          ></h3>
+          <div class="item-box__stats item-box__stats-detail-cart">
+            <div class="item-box__reviews detail-cart__rewiev">
+              <p><span id="itemReview"></span> Positive reviews</p>
+              <p>Above avarage</p>
+            </div>
+            <div class="item-box__orders">
+              <p><span id="orders"></span></p>
+              <p>orders</p>
+            </div>
           </div>
-          <div class="item-box__orders">
-            <p><span id="orders">1,327</span></p>
-            <p>orders</p>
+          <div class="detail-cart__chars">
+            <p class="detail-cart__char">
+              Color: <span id="detailCharColor"></span>
+            </p>
+            <p class="detail-cart__char">
+              Operating System: <span id="detailCharOS"></span>
+            </p>
+            <p class="detail-cart__char">
+              Chip: <span id="detailCharChip"></span>
+            </p>
+            <p class="detail-cart__char">
+              Height: <span id="detailCharHeight"></span>
+            </p>
+            <p class="detail-cart__char">
+              Width: <span id="detailCharWidth"></span>
+            </p>
+            <p class="detail-cart__char">
+              Depth: <span id="detailCharDepth"></span>
+            </p>
+            <p class="detail-cart__char">
+              Weight: <span id="detailCharWeight"></span>
+            </p>
           </div>
         </div>
+        <div class="detail-cart__item">
+          <h5 class="detail-cart__price">$ <span id="itemPrice"></span></h5>
+          <p class="item-stock-left">
+            Stock:
+            <span class="item-stock-span" id="itemStockLeft">45</span>pcs.
+          </p>
+          <button class="add-cart-btn add-cart-btn_detail-cart" id="itemBoxbtn">
+            Add to cart
+          </button>
+        </div>
       </div>
-      <div class="detail-cart__item">
-        <h3>Price</h3>
-        <button class="add-cart-btn" id="itemBoxbtn">Add to cart</button>
-      </div>
-    </div>
+    </template>
 
     <div class="wrapper">
+      <div id="myModal" class="modal">
+        <div class="modal-content"></div>
+      </div>
+
       <header class="header">
         <div class="header__panel">
           <img src="./img/icons/logo.svg" class="header__panel__logo" />
@@ -207,52 +238,56 @@
           </div>
           <div class="filter-panel__item">
             <button class="accordion">Color</button>
-            <div class="filter-panel__block">
-              <label class="filter-panel"
-                >Red
-                <input type="checkbox" />
-                <span class="filter-panel__color-checkmark red"></span>
-              </label>
-              <label class="filter-panel"
-                >Black
-                <input type="checkbox" />
-                <span class="filter-panel__color-checkmark black"></span>
-              </label>
-              <label class="filter-panel"
-                >Blue
-                <input type="checkbox" />
-                <span class="filter-panel__color-checkmark blue"></span>
-              </label>
-              <label class="filter-panel"
-                >Gold
-                <input type="checkbox" />
-                <span class="filter-panel__color-checkmark gold"></span>
-              </label>
-              <label class="filter-panel"
-                >Green
-                <input type="checkbox" />
-                <span class="filter-panel__color-checkmark green"></span>
-              </label>
-              <label class="filter-panel"
-                >White
-                <input type="checkbox" />
-                <span class="filter-panel__color-checkmark white"></span>
-              </label>
-              <label class="filter-panel"
-                >Grey
-                <input type="checkbox" />
-                <span class="filter-panel__color-checkmark grey"></span>
-              </label>
-              <label class="filter-panel"
-                >Yellow
-                <input type="checkbox" />
-                <span class="filter-panel__color-checkmark yellow"></span>
-              </label>
+            <div class="filter-panel__block filter-panel__block-columns">
+              <div>
+                <label class="filter-panel filter-panel__checkbox"
+                  >Red
+                  <input type="checkbox" />
+                  <span class="filter-panel__checkmark"></span>
+                </label>
+                <label class="filter-panel filter-panel__checkbox"
+                  >Black
+                  <input type="checkbox" />
+                  <span class="filter-panel__checkmark"></span>
+                </label>
+                <label class="filter-panel filter-panel__checkbox"
+                  >Blue
+                  <input type="checkbox" />
+                  <span class="filter-panel__checkmark"></span>
+                </label>
+                <label class="filter-panel filter-panel__checkbox"
+                  >Gold
+                  <input type="checkbox" />
+                  <span class="filter-panel__checkmark"></span>
+                </label>
+              </div>
+              <div>
+                <label class="filter-panel filter-panel__checkbox"
+                  >Green
+                  <input type="checkbox" />
+                  <span class="filter-panel__checkmark"></span>
+                </label>
+                <label class="filter-panel filter-panel__checkbox"
+                  >White
+                  <input type="checkbox" />
+                  <span class="filter-panel__checkmark"></span>
+                </label>
+                <label class="filter-panel filter-panel__checkbox"
+                  >Grey
+                  <input type="checkbox" />
+                  <span class="filter-panel__checkmark"></span>
+                </label>
+                <label class="filter-panel filter-panel__checkbox"
+                  >Yellow
+                  <input type="checkbox" />
+                  <span class="filter-panel__checkmark"></span>
+                </label>
+              </div>
             </div>
           </div>
           <div class="filter-panel__item">
             <button class="accordion">Memory</button>
-            <div class="filter-panel__block filter-panel__block-memory">
+            <div class="filter-panel__block filter-panel__block-columns">
               <div>
                 <label class="filter-panel filter-panel__checkbox"
                   >32 Gb

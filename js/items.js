@@ -2404,3 +2404,5 @@ const items2 = [
     orderInfo: { inStock: 0, reviews: 5, orders: 2525 },
   },
 ];
+
+const sliderArr = [];

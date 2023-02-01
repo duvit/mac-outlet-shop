@@ -9,10 +9,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
+    <!-- <link
       href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
       rel="stylesheet"
-    />
+    /> -->
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/style.css" />
     <title>MacOutlet</title>
@@ -63,12 +63,6 @@
               </button>
             </div>
           </div>
-          <!-- <div class="header__banner__image">
-            <h1 class="header__banner__title">AirPods Pro</h1>
-            <button class="header__banner__title__btn add-cart-btn">
-              Add to cart
-            </button>
-          </div> -->
         </div>
       </header>
 
@@ -113,130 +107,122 @@
 
       <div class="main">
         <aside class="filter-panel">
-          <div class="filter-panel__item-price">
+          <div class="filter-panel__item-price filter-panel__price">
             <button class="accordion">Price</button>
-            <div class="filter-panel__block">
-              <div class="filter-panel__price-item">
-                <label class="filter-panel__name" for="price-from">From</label>
+            <div class="filter-panel__block-price">
+              <label class="filter-panel filter-panel__checkbox filter-panel__item-price-label" for="price-from"
+                >From
                 <input
                   class="filter-panel__area"
                   type="number"
                   id="price-from"
                   name="price-from"
                   required
-                />
-              </div>
-              <div class="filter-panel__price-item">
-                <label class="filter-panel__name" for="price-to">To</label>
-                <input
+              /></label>
+
+              <label class="filter-panel filter-panel__checkbox filter-panel__item-price-label" for="price-to"
+                >To<input
                   class="filter-panel__area"
                   type="number"
                   id="price-to"
                   name="price-to"
                   required
-                />
-              </div>
+              /></label>
             </div>
           </div>
-          <div class="filter-panel__item">
+
+          <div class="filter-panel__item filter-panel__color">
             <button class="accordion">Color</button>
-            <div class="filter-panel__block filter-panel__block-columns">
-              <div>
-                <label class="filter-panel filter-panel__checkbox"
-                  >Red
-                  <input type="checkbox" />
-                  <span class="filter-panel__checkmark"></span>
-                </label>
-                <label class="filter-panel filter-panel__checkbox"
-                  >Black
-                  <input type="checkbox" />
-                  <span class="filter-panel__checkmark"></span>
-                </label>
-                <label class="filter-panel filter-panel__checkbox"
-                  >Blue
-                  <input type="checkbox" />
-                  <span class="filter-panel__checkmark"></span>
-                </label>
-                <label class="filter-panel filter-panel__checkbox"
-                  >Gold
-                  <input type="checkbox" />
-                  <span class="filter-panel__checkmark"></span>
-                </label>
-              </div>
-              <div>
-                <label class="filter-panel filter-panel__checkbox"
-                  >Green
-                  <input type="checkbox" />
-                  <span class="filter-panel__checkmark"></span>
-                </label>
-                <label class="filter-panel filter-panel__checkbox"
-                  >White
-                  <input type="checkbox" />
-                  <span class="filter-panel__checkmark"></span>
-                </label>
-                <label class="filter-panel filter-panel__checkbox"
-                  >Grey
-                  <input type="checkbox" />
-                  <span class="filter-panel__checkmark"></span>
-                </label>
-                <label class="filter-panel filter-panel__checkbox"
-                  >Yellow
-                  <input type="checkbox" />
-                  <span class="filter-panel__checkmark"></span>
-                </label>
-              </div>
+            <div class="filter-panel__block">
+              <label class="filter-panel filter-panel__checkbox"
+                >Red
+                <input type="checkbox" />
+                <span class="filter-panel__checkmark"></span>
+              </label>
+              <label class="filter-panel filter-panel__checkbox"
+                >Black
+                <input type="checkbox" />
+                <span class="filter-panel__checkmark"></span>
+              </label>
+              <label class="filter-panel filter-panel__checkbox"
+                >Blue
+                <input type="checkbox" />
+                <span class="filter-panel__checkmark"></span>
+              </label>
+              <label class="filter-panel filter-panel__checkbox"
+                >Gold
+                <input type="checkbox" />
+                <span class="filter-panel__checkmark"></span>
+              </label>
+              <label class="filter-panel filter-panel__checkbox"
+                >Green
+                <input type="checkbox" />
+                <span class="filter-panel__checkmark"></span>
+              </label>
+              <label class="filter-panel filter-panel__checkbox"
+                >White
+                <input type="checkbox" />
+                <span class="filter-panel__checkmark"></span>
+              </label>
+              <label class="filter-panel filter-panel__checkbox"
+                >Grey
+                <input type="checkbox" />
+                <span class="filter-panel__checkmark"></span>
+              </label>
+              <label class="filter-panel filter-panel__checkbox"
+                >Yellow
+                <input type="checkbox" />
+                <span class="filter-panel__checkmark"></span>
+              </label>
             </div>
           </div>
-          <div class="filter-panel__item">
+
+          <div class="filter-panel__item filter-panel__memory">
             <button class="accordion">Memory</button>
-            <div class="filter-panel__block filter-panel__block-columns">
-              <div>
-                <label class="filter-panel filter-panel__checkbox"
-                  >32 Gb
-                  <input type="checkbox" />
-                  <span class="filter-panel__checkmark"></span>
-                </label>
-                <label class="filter-panel filter-panel__checkbox"
-                  >64 Gb
-                  <input type="checkbox" />
-                  <span class="filter-panel__checkmark"></span>
-                </label>
-                <label class="filter-panel filter-panel__checkbox"
-                  >128 Gb
-                  <input type="checkbox" />
-                  <span class="filter-panel__checkmark"></span>
-                </label>
-                <label class="filter-panel filter-panel__checkbox"
-                  >256 Gb
-                  <input type="checkbox" />
-                  <span class="filter-panel__checkmark"></span>
-                </label>
-              </div>
-              <div>
-                <label class="filter-panel filter-panel__checkbox"
-                  >512 Gb
-                  <input type="checkbox" />
-                  <span class="filter-panel__checkmark"></span>
-                </label>
-                <label class="filter-panel filter-panel__checkbox"
-                  >1 Tb
-                  <input type="checkbox" />
-                  <span class="filter-panel__checkmark"></span>
-                </label>
-                <label class="filter-panel filter-panel__checkbox"
-                  >2 Tb
-                  <input type="checkbox" />
-                  <span class="filter-panel__checkmark"></span>
-                </label>
-                <label class="filter-panel filter-panel__checkbox"
-                  >4 Tb
-                  <input type="checkbox" />
-                  <span class="filter-panel__checkmark"></span>
-                </label>
-              </div>
+            <div class="filter-panel__block">
+              <label class="filter-panel filter-panel__checkbox"
+                >32 Gb
+                <input type="checkbox" />
+                <span class="filter-panel__checkmark"></span>
+              </label>
+              <label class="filter-panel filter-panel__checkbox"
+                >64 Gb
+                <input type="checkbox" />
+                <span class="filter-panel__checkmark"></span>
+              </label>
+              <label class="filter-panel filter-panel__checkbox"
+                >128 Gb
+                <input type="checkbox" />
+                <span class="filter-panel__checkmark"></span>
+              </label>
+              <label class="filter-panel filter-panel__checkbox"
+                >256 Gb
+                <input type="checkbox" />
+                <span class="filter-panel__checkmark"></span>
+              </label>
+              <label class="filter-panel filter-panel__checkbox"
+                >512 Gb
+                <input type="checkbox" />
+                <span class="filter-panel__checkmark"></span>
+              </label>
+              <label class="filter-panel filter-panel__checkbox"
+                >1 Tb
+                <input type="checkbox" />
+                <span class="filter-panel__checkmark"></span>
+              </label>
+              <label class="filter-panel filter-panel__checkbox"
+                >2 Tb
+                <input type="checkbox" />
+                <span class="filter-panel__checkmark"></span>
+              </label>
+              <label class="filter-panel filter-panel__checkbox"
+                >4 Tb
+                <input type="checkbox" />
+                <span class="filter-panel__checkmark"></span>
+              </label>
             </div>
           </div>
-          <div class="filter-panel__item">
+          <div class="filter-panel__item filter-panel__os">
             <button class="accordion">OS</button>
             <div class="filter-panel__block">
               <label class="filter-panel filter-panel__checkbox"
@@ -261,7 +247,7 @@
               </label>
             </div>
           </div>
-          <div class="filter-panel__item">
+          <div class="filter-panel__item filter-panel__display">
             <button class="accordion">Display</button>
             <div class="filter-panel__block">
               <label class="filter-panel filter-panel__checkbox"

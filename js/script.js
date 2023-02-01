@@ -6,6 +6,7 @@ for (i = 0; i < filterArr.length; i++) {
   filterArr[i].addEventListener("click", function () {
     this.classList.toggle("active");
     let panel = this.nextElementSibling;
+    // console.log(this.nextElementSibling)
     if (panel.style.maxHeight) {
       panel.style.maxHeight = null;
     } else {
@@ -19,9 +20,9 @@ var slideIndex = 0;
 showSlides();
 
 function showSlides() {
-  var i;
-  var slides = document.getElementsByClassName("mySlides");
-  var dots = document.getElementsByClassName("dot");
+  let i;
+  let slides = document.getElementsByClassName("mySlides");
+  const dots = document.getElementsByClassName("dot");
   for (i = 0; i < slides.length; i++) {
     slides[i].style.display = "none";
   }
@@ -70,30 +71,28 @@ function renderItemCard(item) {
     </button>
   <img
   class="item-box__img"
-  id="itemImg"
   src="./img/${item.imgUrl}"
   alt="item image"
   />
-  <h3 class="item-box__title" id="itemTitle">${item.name}</h3>
+  <h3 class="item-box__title">${item.name}</h3>
   <div class="item-box__status">
     <div class="item-box__amount">
      <img
-       id="itemStockLeftIcon"
        class="item-stockleft-icon ${itemStockLeftIconBorder}"
        src="./img/${itemStockLeftIcon}"
       />
-      <span id="itemStockLeft">${item.orderInfo.inStock}</span> left in stock
+      <span id="">${item.orderInfo.inStock}</span> left in stock
     </div>
-    <h5 class="item-box__price">Price: <span id="itemPrice">${item.price}</span>$</h5>
+    <h5 class="item-box__price">Price: <span id="itemPrice">${item.price}</span> $</h5>
   </div>
   <button class="add-cart-btn ${btnActivity}" id="itemBoxbtn">Add to cart</button>
   <div class="item-box__stats">
     <div class="item-box__reviews">
-      <p><span id="itemReview">${item.orderInfo.reviews}</span> Positive reviews</p>
+      <p><span>${item.orderInfo.reviews}</span> Positive reviews</p>
       <p>Above avarage</p>
     </div>
     <div class="item-box__orders">
-      <p><span id="orders">${item.orderInfo.orders}</span></p>
+      <p><span>${item.orderInfo.orders}</span></p>
       <p>orders</p>
     </div>
   </div>`;
@@ -186,7 +185,7 @@ function createModalWindow(item) {
           <h5 class="detail-cart__price">$ <span id="itemPrice">${item.price}</span></h5>
           <p class="item-stock-left">
             Stock:
-            <span class="item-stock-span" id="itemStockLeft">${item.orderInfo.inStock}</span>pcs.
+            <span class="item-stock-span" id="itemStockLeft">${item.orderInfo.inStock}</span> pcs.
           </p>
           <button class="add-cart-btn add-cart-btn_detail-cart ${btnActivity}" id="itemBoxbtn">
             Add to cart
@@ -203,3 +202,7 @@ window.onclick = function (event) {
     modal.style.display = "none";
   }
 };
+
+function filterItems (event) {
+
+}

@@ -1,7 +1,3 @@
-html {
-  /* font-family: "Roboto", sans-serif; */
-}
-
 .wrapper {
   max-width: 1024px;
   margin: 0 auto;
@@ -355,7 +351,6 @@ img {
 .filter-panel {
   display: block;
   position: relative;
-  /* padding-left: 35px; */
   margin-bottom: 12px;
   cursor: pointer;
   font-family: "Roboto";
@@ -370,8 +365,21 @@ img {
   user-select: none;
 }
 
+/* .filter-panel__item-price {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 1 1;
+} */
+
 .filter-panel__item {
   width: 323px;
+  display: grid;
+}
+
+.filter-panel__item-price {
+  width: 323px;
+  display: flex;
+  flex-direction: column;
 }
 
 .filter-panel__price-item {
@@ -379,6 +387,12 @@ img {
   justify-content: space-between;
   padding: 10px 30px 10px 30px;
   align-items: center;
+}
+
+.filter-panel__price-item input {
+  display: block;
+  display: flex;
+  flex-direction: column;
 }
 
 .detail-cart__price {
@@ -437,7 +451,7 @@ img {
   font-size: 18px;
   line-height: 21px;
   color: #000000;
-  text-align: center;
+  margin-right: 30px;
 }
 
 .filter-panel__area:focus {
@@ -464,18 +478,13 @@ img {
   border: 1px solid #dddada46;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.35);
   border-radius: 5px;
-  display: flex;
-  flex-direction: column;
   margin: 2px;
+  display: grid;
+  grid-template-columns: 50% 50%;
 }
 
-.filter-panel__block-columns {
-  display: flex;
-  flex-direction: row;
-}
-
-.filter-panel__block-memory div {
-  margin-right: 45px;
+.filter-panel__block-price {
+  
 }
 
 .filter-panel__input {
@@ -490,6 +499,12 @@ img {
   padding-top: 18px;
 }
 
+.filter-panel__item-price-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .filter-panel__item input {
   position: absolute;
   display: none;
@@ -497,17 +512,6 @@ img {
 }
 
 /* Create a custom radio button */
-.filter-panel__color-checkmark {
-  position: absolute;
-  top: 11px;
-  left: 20px;
-  height: 20px;
-  width: 20px;
-  background-color: rgba(66, 66, 66, 0.1);
-  border: 1px solid rgba(66, 66, 66, 0.274);
-  border-radius: 30%;
-}
-
 .filter-panel__checkmark {
   position: absolute;
   top: 11px;
@@ -548,21 +552,49 @@ img {
   transform: rotate(45deg);
 }
 
-/* Create the indicator (the dot/circle - hidden when not checked) */
-.filter-panel:after {
+.filter-panel__checkmarks {
+  position: absolute;
+  height: 250px;
+  width: 150px;
+  background-color: rgba(66, 66, 66, 0.1);
+  border: 1px solid rgba(66, 66, 66, 0.274);
+  border-radius: 10%;
+}
+
+.filter-panel input:checked ~ .filter-panel__checkmarks {
+  background-color: #ffffff;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.filter-panel__checkmarks:after {
   content: "";
   position: absolute;
   display: none;
 }
 
-/* Style the indicator (dot/circle) */
-.filter-panel .filter-panel__color-checkmark:after {
-  top: 9px;
-  left: 9px;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: white;
+/* Show the checkmark when checked */
+
+.filter-panel input:checked ~ .filter-panel__checkmarks:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.filter-panel .filter-panel__checkmarks:after {
+  left: 3px;
+  width: 7px;
+  height: 10px;
+  border: solid rgba(0, 0, 0, 0.664);
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.filter-panel:after {
+  content: "";
+  position: absolute;
+  display: none;
 }
 
 .container {
@@ -632,11 +664,11 @@ img {
 .item-box__amount {
   display: flex;
   align-items: center;
+  text-align: center;
   justify-content: center;
 }
 
-#itemStockLeft {
-  /* display: block; */
+.item-box__amount span {
   margin: 0 2%;
 }
 

@@ -1,8 +1,9 @@
 html {
   font-family: "Roboto", sans-serif;
 }
+
 .wrapper {
-  width: 1024px;
+  max-width: 1024px;
   margin: 0 auto;
 }
 
@@ -23,6 +24,9 @@ html {
   border-radius: 50%;
 }
 
+* {
+  box-sizing: border-box;
+}
 body {
   font-family: Verdana, sans-serif;
 }
@@ -34,33 +38,10 @@ img {
 }
 
 /* Slideshow container */
-.slideshow-container {
-  max-width: 1000px;
+.header__banner__slideshow-container {
+  width: 1024px;
   position: relative;
   margin: auto;
-}
-
-.mySlides img {
-  position: relative;
-}
-
-.header__banner__title__btn {
-  padding: 8px 12px;
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 140px;
-}
-
-/* The dots/bullets/indicators */
-.dot {
-  height: 15px;
-  width: 15px;
-  margin: 0 2px;
-  background-color: #bbb;
-  border-radius: 50%;
-  display: inline-block;
-  transition: background-color 0.6s ease;
 }
 
 .active {
@@ -70,14 +51,15 @@ img {
 /* Fading animation */
 .fade {
   -webkit-animation-name: fade;
-  -webkit-animation-duration: 1.8s;
+  -webkit-animation-duration: 2s;
   animation-name: fade;
-  animation-duration: 1.8s;
+  animation-duration: 2s;
+  position: relative;
 }
 
 @-webkit-keyframes fade {
   from {
-    opacity: 0.3;
+    opacity: 0.6;
   }
   to {
     opacity: 1;
@@ -86,10 +68,17 @@ img {
 
 @keyframes fade {
   from {
-    opacity: 0.3;
+    opacity: 0.6;
   }
   to {
     opacity: 1;
+  }
+}
+
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+  .text {
+    font-size: 11px;
   }
 }
 
@@ -99,12 +88,6 @@ img {
   margin: 25px auto 0;
   height: 512px;
   width: 100%;
-  bottom: 0;
-  position: relative;
-  z-index: 1;
-  padding: 190px auto;
-  text-align: center;
-  align-items: center;
 }
 
 .header__banner__title {
@@ -114,15 +97,12 @@ img {
   font-weight: 400;
   font-size: 72px;
   line-height: 84px;
-  color: rgba(0, 0, 0, 0.842);
-  display: block;
+  color: #ffffff;
   position: absolute;
-  left: 0;
-  right: 0;
-  text-align: center;
   bottom: 240px;
-  z-index: 2;
-  -webkit-text-stroke: 0.5px rgb(255, 255, 255); /* width and color */
+  width: 100%;
+  text-align: center;
+  -webkit-text-stroke: 1px rgba(0, 0, 0, 0.473);
 }
 
 .add-cart-btn {
@@ -138,6 +118,14 @@ img {
   background: #0e49b5;
   border-radius: 5px;
   border: none;
+}
+
+.header__banner__title__btn {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 140px;
+  text-align: center;
 }
 
 .search-panel {
@@ -235,9 +223,7 @@ img {
   border-radius: 5px;
 }
 
-.filter-panel__item {
-  width: 323px;
-}
+
 
 .accordion {
   position: relative;
@@ -277,6 +263,29 @@ img {
   right: 10px;
 }
 
+.filter-panel {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1px;
+  color: #000000;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  padding: 20px 0 10px 55px;
+}
+
+.filter-panel__item {
+  width: 323px;
+}
+
 .filter-panel__price-item {
   display: flex;
   justify-content: space-between;
@@ -309,6 +318,29 @@ img {
   background: #ffffff;
   border: 1px solid #e2e2e2;
   border-radius: 5px;
+  display: block;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  color: #000000;
+  text-align: center;
+}
+
+.filter-panel__area:focus {
+  outline: none;
+}
+
+.filter-panel__price-item input::-webkit-outer-spin-button,
+.filter-panel__price-item input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.filter-panel__area input[type="number"] {
+  -moz-appearance: textfield;
 }
 
 .filter-panel__block {
@@ -316,14 +348,19 @@ img {
   background-color: white;
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.2s ease-out;
-  background: #ffffff;
+  transition: max-height 0.1s ease-out;
+  background: rgba(0, 0, 0, 0.05);
   border: 1px solid #dddada46;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.35);
   border-radius: 5px;
   display: flex;
   flex-direction: column;
   margin: 2px;
+}
+
+.filter-panel__block-memory {
+  display: flex;
+  flex-direction: row;
 }
 
 .filter-panel__input {
@@ -334,92 +371,120 @@ img {
   justify-content: space-between;
 }
 
-.filter-panel__color {
-  display: block;
-  position: relative;
-  padding-left: 35px;
-  margin-bottom: 12px;
-  cursor: pointer;
-  font-family: "Roboto";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  color: #000000;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  padding: 20px 0 0 55px;
+
+
+.filter-panel__checkbox {
+  padding-left: 45px;
+  padding-top: 18px;
 }
 
-.filter-panel__color input {
+.filter-panel__item input {
   position: absolute;
-  opacity: 0;
+  display: none;
   cursor: pointer;
 }
 
 /* Create a custom radio button */
 .filter-panel__color-checkmark {
   position: absolute;
-  top: 16px;
+  top: 11px;
   left: 20px;
   height: 20px;
   width: 20px;
-  background-color: rgba(151, 151, 151, 0.2);
-  border: 0.5px solid rgb(151, 151, 151, 0.2);
+  background-color: rgba(66, 66, 66, 0.1);
+  border: 1px solid rgba(66, 66, 66, 0.274);
   border-radius: 30%;
 }
 
-/* On mouse-over, add a grey background color */
-/* .filter-panel__color:hover input ~ .filter-panel__color-checkmark {
-  border: 1px solid rgb(151, 151, 151);
-  background-color: rgb(151, 151, 151);
-} */
-
-/* When the radio button is checked, add a blue background */
-
-.filter-panel__color input:checked ~ .red-checkmark {
-  background-color: red;
+.filter-panel__checkmark {
+  position: absolute;
+  top: 11px;
+  left: 20px;
+  height: 15px;
+  width: 15px;
+  background-color: rgba(66, 66, 66, 0.1);
+  border: 1px solid rgba(66, 66, 66, 0.274);
+  border-radius: 30%;
 }
 
-.filter-panel__color input:checked ~ .green-checkmark {
-  background-color: green;
-}
-
-.filter-panel__color input:checked ~ .blue-checkmark {
-  background-color: blue;
-}
-
-.filter-panel__color input:checked ~ .white-checkmark {
-  background-color: white;
-}
-
-.filter-panel__color input:checked ~ .black-checkmark {
-  background-color: black;
-}
-
-.filter-panel__color input:checked ~ .silver-checkmark {
-  background-color: silver;
-}
-
-.filter-panel__color input:checked ~ .bronze-checkmark {
-  background-color: rgb(205, 127, 50);
-}
-
-/* Create the indicator (the dot/circle - hidden when not checked) */
-.filter-panel__color:after {
+/* Create the checkmark/indicator (hidden when not checked) */
+.filter-panel__checkmark:after {
   content: "";
   position: absolute;
   display: none;
 }
 
-/* Show the indicator when checked */
-.filter-panel__color input:checked ~ .filter-panel__color-checkmark:after {
+/* Show the checkmark when checked */
+.filter-panel input:checked ~ .filter-panel__checkmark:after {
   display: block;
 }
 
-/* Style the indicator */
-.filter-panel__color .filter-panel__color-checkmark:after {
+/* Style the checkmark/indicator */
+.filter-panel .filter-panel__checkmark:after {
+  left: 3px;
+  width: 7px;
+  height: 10px;
+  border: solid rgba(0, 0, 0, 0.664);
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.filter-panel input:checked ~ .filter-panel__color-checkmark.red {
+  background-color: red;
+}
+
+.filter-panel input:checked ~ .filter-panel__color-checkmark.black {
+  background-color: black;
+}
+
+.filter-panel input:checked ~ .filter-panel__color-checkmark.blue {
+  background-color: blue;
+}
+
+.filter-panel input:checked ~ .filter-panel__color-checkmark.gold {
+  background-color: gold;
+}
+
+.filter-panel input:checked ~ .filter-panel__color-checkmark.green {
+  background-color: green;
+}
+
+.filter-panel input:checked ~ .filter-panel__color-checkmark.white {
+  background-color: white;
+}
+
+.filter-panel input:checked ~ .filter-panel__color-checkmark.grey {
+  background-color: grey;
+}
+
+.filter-panel input:checked ~ .filter-panel__color-checkmark.yellow {
+  background-color: yellow;
+}
+
+.filter-panel input:checked ~ .filter-panel__color-checkmark.silver {
+  background-color: rgb(163, 163, 163);
+}
+
+.filter-panel input:checked ~ .filter-panel__color-checkmark.bronze {
+  background-color: rgb(205, 127, 50);
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.filter-panel:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.filter-panel input:checked ~ .filter-panel__color-checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.filter-panel .filter-panel__color-checkmark:after {
   top: 9px;
   left: 9px;
   width: 8px;
@@ -455,7 +520,7 @@ img {
 }
 
 .item-box__img {
-  width: 200px;
+  max-width: 200px;
   height: 200px;
 }
 
@@ -485,17 +550,23 @@ img {
   display: inline;
 }
 
-/* .item-box__amount {
+.item-box__amount {
+  display: flex;
   align-items: center;
-} */
+  justify-content: center;
+}
 
-.item-box__stock {
-  display: inline;
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  margin-right: 5px;
-  margin-top: -2px;
+#itemStockLeft {
+  display: block;
+  margin: 0 2%;
+}
+
+.item-stockleft-icon {
+  display: inline-block;
+  margin: 5px;
+  text-align: center;
+  height: 17px;
+  width: 17px;
 }
 
 .item-box__price {
@@ -552,6 +623,11 @@ img {
   display: inline;
 }
 
-.item-box__btn {
+.item-box__btn-active {
   margin: 10px auto 15px;
+}
+
+.item-box__btn-disable {
+  margin: 10px auto 15px;
+  background: #dddddd;
 }

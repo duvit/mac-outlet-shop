@@ -171,8 +171,8 @@ img {
 }
 
 .header__banner__image {
-  display: flex;
-  flex-direction: column;
+  /* display: flex;
+  flex-direction: column; */
   margin: 25px auto 0;
   height: 512px;
   width: 100%;
@@ -453,6 +453,29 @@ img {
 /* Firefox */
 .filter-panel__area input[type="number"] {
   -moz-appearance: textfield;
+  display: block;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+  color: #000000;
+  text-align: center;
+}
+
+.filter-panel__area:focus {
+  outline: none;
+}
+
+.filter-panel__price-item input::-webkit-outer-spin-button,
+.filter-panel__price-item input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.filter-panel__area input[type="number"] {
+  -moz-appearance: textfield;
 }
 
 .filter-panel__block {
@@ -490,6 +513,7 @@ img {
   padding-top: 18px;
 }
 
+.filter-panel__item input {
 .filter-panel__item input {
   position: absolute;
   display: none;
@@ -555,7 +579,13 @@ img {
   display: none;
 }
 
+/* Show the indicator (dot/circle) when checked */
+.filter-panel__color input:checked ~ .filter-panel__color-checkmark:after {
+  display: block;
+}
+
 /* Style the indicator (dot/circle) */
+.filter-panel .filter-panel__color-checkmark:after {
 .filter-panel .filter-panel__color-checkmark:after {
   top: 9px;
   left: 9px;

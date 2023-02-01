@@ -28,10 +28,12 @@
           <img src="./img/icons/logo.svg" class="header__panel__logo" />
           <img src="./img/icons/cart.svg" class="header__panel__cart" />
         </div>
-        <div class="header__banner">
-          <div class="header__banner__slideshow-container">
+        <div class="header__banner" id="headerBanner">
+          <div class="slideshow-container">
             <div class="mySlides fade">
-              <img
+              <h1 class="header__banner__tslideshow-container">
+            <div class="tle" id="bySlides fade">
+              <imnnerTitl
                 class="header__banner__image"
                 src="./img/banners/air_pods_max_banner.jpg"
               />
@@ -63,12 +65,36 @@
               </button>
             </div>
           </div>
-          <!-- <div class="header__banner__image">
-            <h1 class="header__banner__title">AirPods Pro</h1>
-            <button class="header__banner__title__btn add-cart-btn">
-              Add to cart
-            </button>
-          </div> -->
+          <!-- <div class="header__banner__image">Apple TV</h1>
+              <img
+                src="/img/banners/apple_tv_banner.png"
+                style="height: 100%; width: 1024px"
+              />
+              <button class="header__banner__title__btn add-cart-btn">
+                Add to cart
+              </button>
+            </div>
+            <div class="mySlides fade">
+              <h1 class="header__banner__title" id="bannerTitle">iPhone 12</h1>
+              <img
+                src="/img/banners/iphone_12_banner.jpg"
+                style="height: 100%; width: 1024px"
+              />
+              <button class="header__banner__title__btn add-cart-btn">
+                Add to cart
+              </button>
+            </div>
+            <div class="mySlides fade">
+              <h1 class="header__banner__title" id="bannerTitle">iPad Air</h1>
+              <img
+                src="/img/banners/ipad_air_banner.jpg"
+                style="height: 100%; width: 1024px"
+              />
+              <button class="header__banner__title__btn add-cart-btn">
+                Add to cart
+              </button>
+            </div> -->
+          </div>
         </div>
       </header>
 
@@ -121,6 +147,7 @@
                 <input
                   class="filter-panel__area"
                   type="number"
+                  type="number"
                   id="price-from"
                   name="price-from"
                   required
@@ -130,6 +157,7 @@
                 <label class="filter-panel__name" for="price-to">To</label>
                 <input
                   class="filter-panel__area"
+                  type="number"
                   type="number"
                   id="price-to"
                   name="price-to"

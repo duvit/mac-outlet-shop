@@ -2405,4 +2405,12 @@ const items2 = [
   },
 ];
 
-const sliderArr = [];
+const banners = [
+  { imgUrl: "banners/air_pods_max_banner.jpg", name: "Airpods max" },
+  { imgUrl: "banners/airpods_pro_banner.png", name: "Airpods pro" },
+  { imgUrl: "banners/apple_tv_banner.png", name: "Apple TV" },
+  { imgUrl: "banners/ipad_air_banner.jpg", name: "iPad Air" },
+  { imgUrl: "banners/iphone_12_banner.jpg", name: "iPhone 12" },
+  { imgUrl: "banners/mac_book_banner.jpg", name: "MacBook" },
+  { imgUrl: "banners/watch_banner.jpg", name: "Apple Watch" },
+];

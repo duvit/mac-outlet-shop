@@ -41,38 +41,6 @@ const htmlContainer = document.querySelector(".container");
 
 const cardTemplate = document.querySelector("#cardTemplate");
 
-// function renderItemCard(item) {
-//   let template = cardTemplate.content.cloneNode(true);
-
-//   template.querySelector("#itemImg").src = "./img/" + item.imgUrl;
-//   template.querySelector("#itemTitle").innerText = item.name;
-//   template.querySelector("#itemStockLeft").innerText = item.orderInfo.inStock;
-//   template.querySelector("#itemStockLeft").innerText = item.orderInfo.inStock;
-//   template.querySelector("#itemStockLeftIcon").src =
-//     item.orderInfo.inStock > 0
-//       ? "./img/icons/in_stock.svg"
-//       : "./img/icons/not_in_stock.svg";
-//   template.querySelector("#itemStockLeftIcon").style =
-//     item.orderInfo.inStock > 0
-//       ? "border: 1px solid green; border-radius: 50%;"
-//       : "border: none";
-//   template.querySelector("#itemPrice").innerText = item.price;
-//   template.querySelector("#itemReview").innerText =
-//     item.orderInfo.reviews + "%";
-//   template.querySelector("#orders").innerText = item.orderInfo.orders;
-//   template.querySelector("#itemBoxbtn").classList +=
-//     item.orderInfo.inStock > 0
-//       ? " item-box__btn-active"
-//       : " item-box__btn-disable";
-//   template.querySelector(".item-box").dataset.dataId = item.id;
-
-//   template.addEventListener("click", function () {
-//     createModalWindow();
-//   });
-
-//   return template;
-// }
-
 function renderItemCard(item) {
   let div = document.createElement("div");
   div.classList = "item-box";

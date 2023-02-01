@@ -18,71 +18,20 @@
     <title>MacOutlet</title>
   </head>
   <body>
-    <template id="cardTemplate">
-      <div class="item-box">
-        <button class="item-box__like">
-          <img src="./img/icons/like_empty.svg" alt="" />
-        </button>
-        <img
-          class="item-box__img"
-          id="itemImg"
-          src="./img/items/ipad-air.png"
-          alt="item image"
-        />
-        <h3 class="item-box__title" id="itemTitle"></h3>
-        <div class="item-box__status">
-          <div class="item-box__amount">
-            <img
-              id="itemStockLeftIcon"
-              class="item-stockleft-icon"
-              src="./img/icons/in_stock.svg"
-            />
-          <h3 class="item-box__amount">
-            <img
-              class="item-box__stock"
-              id="itemStockLeftIcon"
-              src="/img/icons/in_stock.svg"
-            />
-            <span id="itemStockLeft"></span> left in stock
-          </h3>
-          <h3 class="item-box__price">Price: <span id="itemPrice"></span>$</h3>
-          </div>
-          <h5 class="item-box__price">Price: <span id="itemPrice"></span>$</h5>
-        </div>
-        <button class="add-cart-btn" id="itemBoxbtn">Add to cart</button>
-        <div class="item-box__stats">
-          <div class="item-box__reviews">
-            <p><span id="itemReview"></span> Positive reviews</p>
-            <p>Above avarage</p>
-          </div>
-          <div class="item-box__orders">
-            <p><span id="orders">1,327</span></p>
-            <p>orders</p>
-          </div>
-        </div>
-      </div>
-    </template>
-
-    <template id="bannerTemplate">
-      <img class="header__banner__image" id="bannerImage" src="" />
-      <h1 class="header__banner__title" id="bannerTitle"></h1>
-      <button class="header__banner__title__btn add-cart-btn">
-        Add to cart
-      </button>
-    </template>
-
     <div class="wrapper">
+      <div id="myModal" class="modal">
+        <div class="modal-content"></div>
+      </div>
+
       <header class="header">
         <div class="header__panel">
           <img src="./img/icons/logo.svg" class="header__panel__logo" />
           <img src="./img/icons/cart.svg" class="header__panel__cart" />
         </div>
-        <div class="header__banner" id="headerBanner">
-          <div class="slideshow-container">
+        <div class="header__banner">
+          <div class="header__banner__slideshow-container">
             <div class="mySlides fade">
-              <h1 class="header__banner__tslideshow-container">
-            <div class="tle" id="bySlides fade">
-              <imnnerTitl
+              <img
                 class="header__banner__image"
                 src="./img/banners/air_pods_max_banner.jpg"
               />
@@ -114,36 +63,12 @@
               </button>
             </div>
           </div>
-          <!-- <div class="header__banner__image">Apple TV</h1>
-              <img
-                src="/img/banners/apple_tv_banner.png"
-                style="height: 100%; width: 1024px"
-              />
-              <button class="header__banner__title__btn add-cart-btn">
-                Add to cart
-              </button>
-            </div>
-            <div class="mySlides fade">
-              <h1 class="header__banner__title" id="bannerTitle">iPhone 12</h1>
-              <img
-                src="/img/banners/iphone_12_banner.jpg"
-                style="height: 100%; width: 1024px"
-              />
-              <button class="header__banner__title__btn add-cart-btn">
-                Add to cart
-              </button>
-            </div>
-            <div class="mySlides fade">
-              <h1 class="header__banner__title" id="bannerTitle">iPad Air</h1>
-              <img
-                src="/img/banners/ipad_air_banner.jpg"
-                style="height: 100%; width: 1024px"
-              />
-              <button class="header__banner__title__btn add-cart-btn">
-                Add to cart
-              </button>
-            </div> -->
-          </div>
+          <!-- <div class="header__banner__image">
+            <h1 class="header__banner__title">AirPods Pro</h1>
+            <button class="header__banner__title__btn add-cart-btn">
+              Add to cart
+            </button>
+          </div> -->
         </div>
       </header>
 
@@ -187,7 +112,7 @@
       </div>
 
       <div class="main">
-        <section class="filter-panel">
+        <aside class="filter-panel">
           <div class="filter-panel__item-price">
             <button class="accordion">Price</button>
             <div class="filter-panel__block">
@@ -215,52 +140,56 @@
           </div>
           <div class="filter-panel__item">
             <button class="accordion">Color</button>
-            <div class="filter-panel__block">
-              <label class="filter-panel"
-                >Red
-                <input type="checkbox" />
-                <span class="filter-panel__color-checkmark red"></span>
-              </label>
-              <label class="filter-panel"
-                >Black
-                <input type="checkbox" />
-                <span class="filter-panel__color-checkmark black"></span>
-              </label>
-              <label class="filter-panel"
-                >Blue
-                <input type="checkbox" />
-                <span class="filter-panel__color-checkmark blue"></span>
-              </label>
-              <label class="filter-panel"
-                >Gold
-                <input type="checkbox" />
-                <span class="filter-panel__color-checkmark gold"></span>
-              </label>
-              <label class="filter-panel"
-                >Green
-                <input type="checkbox" />
-                <span class="filter-panel__color-checkmark green"></span>
-              </label>
-              <label class="filter-panel"
-                >White
-                <input type="checkbox" />
-                <span class="filter-panel__color-checkmark white"></span>
-              </label>
-              <label class="filter-panel"
-                >Grey
-                <input type="checkbox" />
-                <span class="filter-panel__color-checkmark grey"></span>
-              </label>
-              <label class="filter-panel"
-                >Yellow
-                <input type="checkbox" />
-                <span class="filter-panel__color-checkmark yellow"></span>
-              </label>
+            <div class="filter-panel__block filter-panel__block-columns">
+              <div>
+                <label class="filter-panel filter-panel__checkbox"
+                  >Red
+                  <input type="checkbox" />
+                  <span class="filter-panel__checkmark"></span>
+                </label>
+                <label class="filter-panel filter-panel__checkbox"
+                  >Black
+                  <input type="checkbox" />
+                  <span class="filter-panel__checkmark"></span>
+                </label>
+                <label class="filter-panel filter-panel__checkbox"
+                  >Blue
+                  <input type="checkbox" />
+                  <span class="filter-panel__checkmark"></span>
+                </label>
+                <label class="filter-panel filter-panel__checkbox"
+                  >Gold
+                  <input type="checkbox" />
+                  <span class="filter-panel__checkmark"></span>
+                </label>
+              </div>
+              <div>
+                <label class="filter-panel filter-panel__checkbox"
+                  >Green
+                  <input type="checkbox" />
+                  <span class="filter-panel__checkmark"></span>
+                </label>
+                <label class="filter-panel filter-panel__checkbox"
+                  >White
+                  <input type="checkbox" />
+                  <span class="filter-panel__checkmark"></span>
+                </label>
+                <label class="filter-panel filter-panel__checkbox"
+                  >Grey
+                  <input type="checkbox" />
+                  <span class="filter-panel__checkmark"></span>
+                </label>
+                <label class="filter-panel filter-panel__checkbox"
+                  >Yellow
+                  <input type="checkbox" />
+                  <span class="filter-panel__checkmark"></span>
+                </label>
+              </div>
             </div>
           </div>
           <div class="filter-panel__item">
             <button class="accordion">Memory</button>
-            <div class="filter-panel__block filter-panel__block-memory">
+            <div class="filter-panel__block filter-panel__block-columns">
               <div>
                 <label class="filter-panel filter-panel__checkbox"
                   >32 Gb
@@ -362,7 +291,8 @@
               </label>
             </div>
           </div>
-        </section>
+        </aside>
+
         <div class="container"></div>
       </div>
     </div>

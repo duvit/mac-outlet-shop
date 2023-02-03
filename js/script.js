@@ -1,8 +1,7 @@
 //Accordion script
 const filterArr = document.getElementsByClassName("accordion");
-let i;
 
-for (i = 0; i < filterArr.length; i++) {
+for (let i = 0; i < filterArr.length; i++) {
   filterArr[i].addEventListener("click", function () {
     this.classList.toggle("active");
     let panel = this.nextElementSibling;
@@ -109,9 +108,6 @@ itemsArr.forEach((item) => {
   htmlContainer.append(card);
 });
 
-const modalTeamplate = document.querySelector("#modalTeamplate");
-const wrapper = document.querySelector(".wrapper");
-
 const container = document.querySelectorAll(".item-box");
 
 function createModalWindow(item) {
@@ -132,7 +128,7 @@ function createModalWindow(item) {
   if (item.os) {
     itemOs = `Operating System: <span id="detailCharOS">${item.os}</span>`;
   } else {
-    itemOs = '';
+    itemOs = "";
   }
 
   div.innerHTML = `<div class="detail-cart__item">
@@ -203,6 +199,65 @@ window.onclick = function (event) {
   }
 };
 
-function filterItems (event) {
+function filterItems(event) {}
 
-}
+const createFiltersPanel = () => {
+  const filterObj = {};
+  const filterContainer = document.querySelector(".filter-panel");
+
+  const filterPanelItem = document.createElement("div");
+  filterPanelItem.classList = "filter-panel__item";
+
+  const filterSectionLabel = document.createElement("button");
+  filterSectionLabel.classList = "accordion";
+
+  const filterPanelBlock = document.createElement("div");
+  filterPanelBlock.classList = "filter-panel__block";
+
+  const filterPanelLabel = document.createElement("label");
+  filterPanelLabel.classList = "filter-panel filter-panel__checkbox";
+
+  const filterPanelInput = document.createElement("input");
+  filterPanelInput.type = "checkbox";
+
+  const filterPanelCheckmark = document.createElement("span");
+  filterPanelCheckmark.classList = "filter-panel__checkmark";
+
+  filterPanelItem.append(filterSectionLabel);
+  filterPanelItem.append(filterPanelBlock);
+  filterPanelBlock.append(filterPanelLabel);
+  filterPanelLabel.append(filterPanelInput, filterPanelCheckmark);
+
+  itemsArr.forEach((item) => {
+    color;
+    storage;
+    os;
+    display;
+  });
+};
+
+// const filterContainer = document.querySelector(".filter-panel");
+// const filterPanelItem = document.createElement("div");
+// filterPanelItem.classList = "filter-panel__item";
+
+// const filterSectionLabel = document.createElement("button");
+// filterSectionLabel.classList = "accordion";
+
+// const filterPanelBlock = document.createElement("div");
+// filterPanelBlock.classList = "filter-panel__block";
+
+// const filterPanelLabel = document.createElement("label");
+// filterPanelLabel.classList = "filter-panel filter-panel__checkbox";
+
+// const filterPanelInput = document.createElement("input");
+// filterPanelInput.type = "checkbox";
+
+// const filterPanelCheckmark = document.createElement("span");
+// filterPanelCheckmark.classList = "filter-panel__checkmark";
+
+// filterPanelItem.append(filterSectionLabel);
+// filterPanelItem.append(filterPanelBlock);
+// filterPanelBlock.append(filterPanelLabel);
+// filterPanelLabel.append(filterPanelInput, filterPanelCheckmark);
+
+// filterContainer.append(filterPanelItem)

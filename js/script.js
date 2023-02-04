@@ -1,19 +1,3 @@
-//Accordion script
-const filterArr = document.getElementsByClassName("accordion");
-
-for (let i = 0; i < filterArr.length; i++) {
-  filterArr[i].addEventListener("click", function () {
-    this.classList.toggle("active");
-    let panel = this.nextElementSibling;
-    // console.log(this.nextElementSibling)
-    if (panel.style.maxHeight) {
-      panel.style.maxHeight = null;
-    } else {
-      panel.style.maxHeight = "100%";
-    }
-  });
-}
-
 //Slider script
 var slideIndex = 0;
 showSlides();
@@ -111,8 +95,8 @@ itemsArr.forEach((item) => {
 const container = document.querySelectorAll(".item-box");
 
 function createModalWindow(item) {
-  let div = document.createElement("div");
-  div.classList = "detail-cart";
+  let detailCart = document.createElement("div");
+  detailCart.classList = "detail-cart";
 
   const modalContent = document.querySelector(".modal-content");
   modalContent.innerHTML = "";
@@ -131,7 +115,7 @@ function createModalWindow(item) {
     itemOs = "";
   }
 
-  div.innerHTML = `<div class="detail-cart__item">
+  detailCart.innerHTML = `<div class="detail-cart__item">
   <img
     class="detail-cart__img"
     id="detailCartImg"
@@ -164,16 +148,16 @@ function createModalWindow(item) {
           Chip: <span id="detailCharChip">${item.chip.name}</span>
         </p>
         <p class="detail-cart__char">
-          Height: <span id="detailCharHeight">${item.size.height}</span>
+          Height: <span id="detailCharHeight">${item.size.height} cm</span>
         </p>
         <p class="detail-cart__char">
-          Width: <span id="detailCharWidth">${item.size.width}</span>
+          Width: <span id="detailCharWidth">${item.size.width} cm</span>
         </p>
         <p class="detail-cart__char">
-          Depth: <span id="detailCharDepth">${item.size.depth}</span>
+          Depth: <span id="detailCharDepth">${item.size.depth} cm</span>
         </p>
         <p class="detail-cart__char">
-          Weight: <span id="detailCharWeight">${item.size.weight}</span>
+          Weight: <span id="detailCharWeight">${item.size.weight} g</span>
         </p>
       </div>
     </div>
@@ -187,7 +171,7 @@ function createModalWindow(item) {
             Add to cart
           </button>
         </div>`;
-  modalContent.append(div);
+  modalContent.append(detailCart);
   modal.style.display = "block";
 }
 
@@ -201,63 +185,139 @@ window.onclick = function (event) {
 
 function filterItems(event) {}
 
-const createFiltersPanel = () => {
-  const filterObj = {};
+function createFilters() {
+  const filterObjs = [
+    {
+      displayName: "Color",
+      name: "color",
+      options: [],
+    },
+    {
+      displayName: "Memory",
+      name: "storage",
+      options: [],
+    },
+    {
+      displayName: "OS",
+      name: "os",
+      options: [],
+    },
+    {
+      displayName: "Display",
+      name: "display",
+      options: [],
+    },
+  ];
+
+  itemsArr.forEach((item) => {
+    for (let i = 0; i < filterObjs.length; i++) {
+      filterObjs[i].options.push(item[filterObjs[i].name]);
+
+      filterObjs[i].options = filterObjs[i].options
+        .flat()
+        .filter(
+          (item, index, array) => array.indexOf(item) === index && item != null
+        );
+    }
+  });
+
   const filterContainer = document.querySelector(".filter-panel");
 
   const filterPanelItem = document.createElement("div");
   filterPanelItem.classList = "filter-panel__item";
 
-  const filterSectionLabel = document.createElement("button");
-  filterSectionLabel.classList = "accordion";
-
   const filterPanelBlock = document.createElement("div");
   filterPanelBlock.classList = "filter-panel__block";
 
-  const filterPanelLabel = document.createElement("label");
-  filterPanelLabel.classList = "filter-panel filter-panel__checkbox";
+  for (const key in filterObjs) {
+    let valueLabel = "";
 
-  const filterPanelInput = document.createElement("input");
-  filterPanelInput.type = "checkbox";
+    switch (filterObjs[key].displayName) {
+      case "Memory":
+        valueLabel = "Gb";
+        break;
+      case "Display":
+        valueLabel = "inch";
+        break;
 
-  const filterPanelCheckmark = document.createElement("span");
-  filterPanelCheckmark.classList = "filter-panel__checkmark";
+      default:
+        break;
+    }
 
-  filterPanelItem.append(filterSectionLabel);
-  filterPanelItem.append(filterPanelBlock);
-  filterPanelBlock.append(filterPanelLabel);
-  filterPanelLabel.append(filterPanelInput, filterPanelCheckmark);
+    filterPanelItem.innerHTML += `<button class="accordion">${filterObjs[key].displayName}</button>`;
 
-  itemsArr.forEach((item) => {
-    color;
-    storage;
-    os;
-    display;
+    filterPanelBlock.innerHTML = "";
+
+    for (const iterator of filterObjs[key].options) {
+      filterPanelBlock.innerHTML += `
+      <label class="filter-panel filter-panel__checkbox" data-value=${iterator} data-type=${filterObjs[key].name}
+        >${iterator} ${valueLabel}
+         <input type="checkbox" />
+         <span class="filter-panel__checkmark" data-value=${iterator} data-type=${filterObjs[key].name}></span>
+       </label>
+      `;
+    }
+
+    filterPanelItem.append(filterPanelBlock);
+    filterContainer.append(filterPanelItem);
+  }
+
+  const filterObj = {
+    color: [],
+    storage: [],
+    os: [],
+    display: [],
+  };
+
+  filterPanelItem.addEventListener("click", (it) => {
+    console.log(it.target.checked);
+
+    if (it.target.dataset.type) {
+      filterObj[it.target.dataset.type].push(it.target.dataset.value);
+      htmlContainer.innerHTML = "";
+    }
+
+    const filteredArr = itemsArr.filter((item) => {
+      let value = null;
+
+      for (const i of filterObj[it.target.dataset.type]) {
+        value = i;
+      }
+
+      return item[it.target.dataset.type] == value;
+    });
+
+    filteredArr.forEach((item) => {
+      let card = renderItemCard(item);
+      htmlContainer.append(card);
+    });
+
+    // if (!it.target.checked) {
+    //   htmlContainer.innerHTML = "";
+    //   itemsArr.forEach((item) => {
+    //     let card = renderItemCard(item);
+    //     htmlContainer.append(card);
+    //   });
+    // }
+   
+    console.log(filteredArr);
   });
-};
+}
 
-// const filterContainer = document.querySelector(".filter-panel");
-// const filterPanelItem = document.createElement("div");
-// filterPanelItem.classList = "filter-panel__item";
+createFilters();
 
-// const filterSectionLabel = document.createElement("button");
-// filterSectionLabel.classList = "accordion";
+//Accordion script
+const filterArr = document.getElementsByClassName("accordion");
 
-// const filterPanelBlock = document.createElement("div");
-// filterPanelBlock.classList = "filter-panel__block";
-
-// const filterPanelLabel = document.createElement("label");
-// filterPanelLabel.classList = "filter-panel filter-panel__checkbox";
-
-// const filterPanelInput = document.createElement("input");
-// filterPanelInput.type = "checkbox";
-
-// const filterPanelCheckmark = document.createElement("span");
-// filterPanelCheckmark.classList = "filter-panel__checkmark";
-
-// filterPanelItem.append(filterSectionLabel);
-// filterPanelItem.append(filterPanelBlock);
-// filterPanelBlock.append(filterPanelLabel);
-// filterPanelLabel.append(filterPanelInput, filterPanelCheckmark);
-
-// filterContainer.append(filterPanelItem)
+for (let i = 0; i < filterArr.length; i++) {
+  filterArr[i].addEventListener("click", function () {
+    this.classList.toggle("active");
+    let panel = this.nextElementSibling;
+    // console.log(this.nextElementSibling)
+    if (panel.style.maxHeight) {
+      panel.style.maxHeight = null;
+    } else {
+      panel.style.maxHeight = "100%";
+    }
+  });
+}

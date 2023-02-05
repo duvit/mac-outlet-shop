@@ -1,3 +1,49 @@
+function searchCategories() {
+  const searchBtnCategories = document.querySelector(".search-btn-categories");
+  const searchBtnSort = document.querySelector(".search-btn-sort");
+
+  searchBtnCategories.addEventListener("click", () => {
+    let block = searchBtnCategories.nextElementSibling;
+
+    if (block.style.display === "none") {
+      block.style.display = "block";
+      searchBtnCategories.style = "background: #102243;";
+    } else {
+      searchBtnCategories.style = "background: #0e49b5;";
+      block.style.display = "none";
+    }
+  });
+
+  searchBtnSort.addEventListener("click", () => {
+    let block = searchBtnSort.nextElementSibling;
+
+    if (block.style.display === "none") {
+      block.style.display = "block";
+      searchBtnSort.style = "background: #102243;";
+    } else {
+      searchBtnSort.style = "background: #0e49b5;";
+      block.style.display = "none";
+    }
+  });
+}
+
+searchCategories();
+
+function showCart() {
+  const cartBtn = document.querySelector(".header__panel__cart");
+  const cart = document.querySelector(".shop-cart");
+
+  cartBtn.addEventListener("click", () => {
+    if (cart.style.display === "none") {
+      cart.style.display = "block";
+    } else {
+      cart.style.display = "none";
+    }
+  });
+}
+
+showCart();
+
 //Slider script
 var slideIndex = 0;
 showSlides();
@@ -118,22 +164,20 @@ function createModalWindow(item) {
   detailCart.innerHTML = `<div class="detail-cart__item">
   <img
     class="detail-cart__img"
-    id="detailCartImg"
     src="./img/${item.imgUrl}"
   />
   </div>
     <div class="detail-cart__item detail-cart__stats">
       <h3
-        class="item-box__title item-box__title-detail-cart"
-        id="itemTitle">
+        class="item-box__title item-box__title-detail-cart">
         ${item.name}</h3>
       <div class="item-box__stats item-box__stats-detail-cart">
         <div class="item-box__reviews detail-cart__rewiev">
-          <p><span id="itemReview">${item.orderInfo.reviews}%</span> Positive reviews</p>
+          <p><span >${item.orderInfo.reviews}%</span> Positive reviews</p>
           <p>Above avarage</p>
         </div>
         <div class="item-box__orders">
-          <p><span id="orders">${item.orderInfo.orders}</span></p>
+          <p><span>${item.orderInfo.orders}</span></p>
           <p>orders</p>
         </div>
       </div>
@@ -145,29 +189,29 @@ function createModalWindow(item) {
           ${itemOs}
         </p>
         <p class="detail-cart__char">
-          Chip: <span id="detailCharChip">${item.chip.name}</span>
+          Chip: <span>${item.chip.name}</span>
         </p>
         <p class="detail-cart__char">
-          Height: <span id="detailCharHeight">${item.size.height} cm</span>
+          Height: <span>${item.size.height} cm</span>
         </p>
         <p class="detail-cart__char">
-          Width: <span id="detailCharWidth">${item.size.width} cm</span>
+          Width: <span>${item.size.width} cm</span>
         </p>
         <p class="detail-cart__char">
-          Depth: <span id="detailCharDepth">${item.size.depth} cm</span>
+          Depth: <span>${item.size.depth} cm</span>
         </p>
         <p class="detail-cart__char">
-          Weight: <span id="detailCharWeight">${item.size.weight} g</span>
+          Weight: <span>${item.size.weight} g</span>
         </p>
       </div>
     </div>
       <div class="detail-cart__item">
-          <h5 class="detail-cart__price">$ <span id="itemPrice">${item.price}</span></h5>
+          <h5 class="detail-cart__price">$ <span>${item.price}</span></h5>
           <p class="item-stock-left">
             Stock:
-            <span class="item-stock-span" id="itemStockLeft">${item.orderInfo.inStock}</span> pcs.
+            <span class="item-stock-span">${item.orderInfo.inStock}</span> pcs.
           </p>
-          <button class="add-cart-btn add-cart-btn_detail-cart ${btnActivity}" id="itemBoxbtn">
+          <button class="add-cart-btn add-cart-btn_detail-cart ${btnActivity}">
             Add to cart
           </button>
         </div>`;
@@ -183,7 +227,17 @@ window.onclick = function (event) {
   }
 };
 
-function filterItems(event) {}
+function createShopCart() {}
+
+const shopCart = document.getElementById("shopCart");
+
+window.onclick = function (event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+};
+
+function filterItems() {}
 
 function createFilters() {
   const filterObjs = [
@@ -250,10 +304,10 @@ function createFilters() {
 
     for (const iterator of filterObjs[key].options) {
       filterPanelBlock.innerHTML += `
-      <label class="filter-panel filter-panel__checkbox" data-value=${iterator} data-type=${filterObjs[key].name}
+      <label class="filter-panel filter-panel__checkbox"
         >${iterator} ${valueLabel}
-         <input type="checkbox" />
-         <span class="filter-panel__checkmark" data-value=${iterator} data-type=${filterObjs[key].name}></span>
+         <input data-value=${iterator} data-type=${filterObjs[key].name} type="checkbox" />
+         <span class="filter-panel__checkmark"></span>
        </label>
       `;
     }
@@ -262,46 +316,166 @@ function createFilters() {
     filterContainer.append(filterPanelItem);
   }
 
+  const form = document.querySelector(".filter-panel__block-price");
+  const minPrice = document.querySelector("#price-from");
+  const maxPrice = document.querySelector("#price-to");
+
   const filterObj = {
     color: [],
     storage: [],
     os: [],
     display: [],
+    minValue: minPrice.value,
+    maxValue: maxPrice.value,
+    items: [],
   };
 
-  filterPanelItem.addEventListener("click", (it) => {
-    console.log(it.target.checked);
+  function filtering() {
+    const items = [...itemsArr];
 
-    if (it.target.dataset.type) {
-      filterObj[it.target.dataset.type].push(it.target.dataset.value);
+    items.sort((a, b) => {
+      if (a.price > b.price) {
+        return 1;
+      }
+      if (a.price < b.price) {
+        return -1;
+      }
+      return 0;
+    });
+
+    if (minPrice.value < items[0].price) {
+      minPrice.value = items[0].price;
+    }
+    if (maxPrice.value >= items[items.length - 1].price) {
+      maxPrice.value = items[items.length - 1].price;
+    }
+
+    const prisecObj = {
+      minValue: minPrice.value,
+      maxValue: maxPrice.value,
+      items: [],
+    };
+
+    // if (maxPrice.value < minPrice.value) {
+    //   maxPrice.value = +minPrice.value + 1;
+    // }
+
+    prisecObj.items = items.filter((item) => {
+      return (
+        item.price > (prisecObj.minValue || items[0].price) &&
+        item.price < (prisecObj.maxValue || items[items.length - 1].price)
+      );
+    });
+
+    if (minPrice) {
       htmlContainer.innerHTML = "";
     }
 
-    const filteredArr = itemsArr.filter((item) => {
-      let value = null;
-
-      for (const i of filterObj[it.target.dataset.type]) {
-        value = i;
-      }
-
-      return item[it.target.dataset.type] == value;
+    prisecObj.items.forEach((item) => {
+      let card = renderItemCard(item);
+      htmlContainer.append(card);
     });
+  }
+
+  form.addEventListener("change", filtering);
+
+  filterPanelItem.addEventListener("change", (e) => {
+    htmlContainer.innerHTML = "";
+
+    const targetType = e.target.dataset.type;
+    const targetValue = e.target.dataset.value;
+
+    if (e.target.checked) {
+      filterObj[targetType].push(targetValue);
+    } else {
+      filterObj[targetType].splice(
+        filterObj[targetType].indexOf(targetValue),
+        1
+      );
+    }
+
+    const filteredArr = itemsArr.filter((item) => {
+      let acc = true;
+
+      for (const type in filterObj) {
+        if (filterObj[type].length) {
+          if (Array.isArray(item[type])) {
+            acc = acc && filterObj[type].some((it) => item[type].includes(it));
+          } else if (item[type]) {
+            acc = acc && filterObj[type].includes(item[type].toString());
+          } else {
+            acc = false;
+          }
+        }
+      }
+      return acc;
+    });
+
+    // console.log(filterObj);
+    // console.log(filteredArr);
 
     filteredArr.forEach((item) => {
       let card = renderItemCard(item);
       htmlContainer.append(card);
     });
-
-    // if (!it.target.checked) {
-    //   htmlContainer.innerHTML = "";
-    //   itemsArr.forEach((item) => {
-    //     let card = renderItemCard(item);
-    //     htmlContainer.append(card);
-    //   });
-    // }
-   
-    console.log(filteredArr);
   });
+
+  // const form = document.querySelector(".filter-panel__block-price");
+  // const minPrice = document.querySelector("#price-from");
+  // const maxPrice = document.querySelector("#price-to");
+
+  // function filtering() {
+  //   const items = [...itemsArr];
+
+  //   items.sort((a, b) => {
+  //     if (a.price > b.price) {
+  //       return 1;
+  //     }
+  //     if (a.price < b.price) {
+  //       return -1;
+  //     }
+  //     return 0;
+  //   });
+
+  //   if (minPrice.value < items[0].price) {
+  //     minPrice.value = items[0].price;
+  //   }
+  //   if (maxPrice.value >= items[items.length - 1].price) {
+  //     maxPrice.value = items[items.length - 1].price;
+  //   }
+
+  //   const prisecObj = {
+  //     minValue: minPrice.value,
+  //     maxValue: maxPrice.value,
+  //     items: [],
+  //   };
+
+  //   if (maxPrice.value < minPrice.value) {
+  //     maxPrice.value = +minPrice.value + 1;
+  //     minPrice.value = +maxPrice.value - 1;
+  //   }
+  //   if (minPrice.value > maxPrice.value) {
+  //     minPrice.value = +maxPrice.value - 1;
+  //   }
+
+  //   prisecObj.items = items.filter((item) => {
+  //     return (
+  //       item.price > (prisecObj.minValue || items[0].price) &&
+  //       item.price < (prisecObj.maxValue || items[items.length - 1].price)
+  //     );
+  //   });
+
+  //   if (minPrice) {
+  //     htmlContainer.innerHTML = "";
+  //   }
+
+  //   prisecObj.items.forEach((item) => {
+  //     let card = renderItemCard(item);
+  //     htmlContainer.append(card);
+  //   });
+  // }
+
+  // form.addEventListener("change", filtering);
 }
 
 createFilters();
@@ -313,7 +487,6 @@ for (let i = 0; i < filterArr.length; i++) {
   filterArr[i].addEventListener("click", function () {
     this.classList.toggle("active");
     let panel = this.nextElementSibling;
-    // console.log(this.nextElementSibling)
     if (panel.style.maxHeight) {
       panel.style.maxHeight = null;
     } else {

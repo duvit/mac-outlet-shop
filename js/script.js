@@ -1,33 +1,29 @@
-function searchCategories() {
-  const searchBtnCategories = document.querySelector(".search-btn-categories");
-  const searchBtnSort = document.querySelector(".search-btn-sort");
+const searchBtnCategories = document.querySelector(".search-btn-categories");
+const searchBtnSort = document.querySelector(".search-btn-sort");
 
-  searchBtnCategories.addEventListener("click", () => {
-    let block = searchBtnCategories.nextElementSibling;
+searchBtnCategories.addEventListener("click", () => {
+  let block = searchBtnCategories.nextElementSibling;
 
-    if (block.style.display === "none") {
-      block.style.display = "block";
-      searchBtnCategories.style = "background: #102243;";
-    } else {
-      searchBtnCategories.style = "background: #0e49b5;";
-      block.style.display = "none";
-    }
-  });
+  if (block.style.display === "none") {
+    block.style.display = "block";
+    searchBtnCategories.style = "background: #102243;";
+  } else {
+    searchBtnCategories.style = "background: #0e49b5;";
+    block.style.display = "none";
+  }
+});
 
-  searchBtnSort.addEventListener("click", () => {
-    let block = searchBtnSort.nextElementSibling;
+searchBtnSort.addEventListener("click", () => {
+  let block = searchBtnSort.nextElementSibling;
 
-    if (block.style.display === "none") {
-      block.style.display = "block";
-      searchBtnSort.style = "background: #102243;";
-    } else {
-      searchBtnSort.style = "background: #0e49b5;";
-      block.style.display = "none";
-    }
-  });
-}
-
-searchCategories();
+  if (block.style.display === "none") {
+    block.style.display = "block";
+    searchBtnSort.style = "background: #102243;";
+  } else {
+    searchBtnSort.style = "background: #0e49b5;";
+    block.style.display = "none";
+  }
+});
 
 function showCart() {
   const cartBtn = document.querySelector(".header__panel__cart");
@@ -47,6 +43,8 @@ showCart();
 //Slider script
 var slideIndex = 0;
 showSlides();
+
+const shopCartArr = [];
 
 function showSlides() {
   let i;
@@ -126,6 +124,8 @@ function renderItemCard(item) {
     </div>
   </div>`;
 
+  div.dataset.id = item.id;
+
   div.addEventListener("click", function () {
     createModalWindow(item);
   });
@@ -136,6 +136,55 @@ function renderItemCard(item) {
 itemsArr.forEach((item) => {
   let card = renderItemCard(item);
   htmlContainer.append(card);
+});
+
+const addCartBtn = document.querySelectorAll(".add-cart-btn");
+// const shopCartContainer = document.querySelector(".shop-cart__item");
+const shopCartBox = document.querySelector(".shop-cart");
+
+addCartBtn.forEach((it) => {
+  it.addEventListener("click", (item) => {
+    const itemIndex = itemsArr.findIndex((item) => {
+      item.id === it.parentElement.dataset.id;
+    });
+
+    if (itemsArr[itemIndex].orderInfo.inStock > 0) {
+      shopCartArr.push(itemsArr[itemIndex]);
+    }
+
+    if (shopCartArr.length) {
+      shopCartArr.forEach((itemIndex) => {
+        const div = document.createElement("div");
+        div.innerHTML = `
+        <div>
+          <h2 class="shop-cart__title">Shopping Cart</h2>
+          <p class="shop-cart__title-info">Checkout is almost done!</p>
+        </div>
+        <div class="shop-cart__item">
+        <img class="shop-cart__item-img" src="./img/${itemIndex.imgUrl}" />
+          <div class="shop-cart__item-info">
+            <h4 class="shop-cart__item-title">${itemIndex.name}</h4>
+            <p class="shop-cart__item-price">$ ${itemIndex.price}</p>
+          </div>
+          <div class="shop-cart__item-btns">
+            <button class="shop-cart__item-btn"><</button>
+            <span>2</span>
+            <button class="shop-cart__item-btn">></button>
+          </div>
+          <div class="shop-cart__item-close-btn-div">
+            <button class="shop-cart__item-close-btn">x</button>
+          </div>
+          </div>
+          <div class="shop-cart__amount">
+            <span>Total amount: <span>3 ptc. </span></span>
+            <span>Total price: <span>1699$</span> </span>
+          </div>
+          <button class="shop-cart__btn">Buy</button>`;
+
+        shopCartBox.append(div);
+      });
+    }
+  });
 });
 
 const container = document.querySelectorAll(".item-box");
@@ -183,7 +232,7 @@ function createModalWindow(item) {
       </div>
       <div class="detail-cart__chars">
         <p class="detail-cart__char">
-          Color: <span id="detailCharColor">${item.color}</span>
+          Color: <span id="detailCharColor">${item.color.join(", ")}</span>
         </p>
         <p class="detail-cart__char">
           ${itemOs}
@@ -306,7 +355,9 @@ function createFilters() {
       filterPanelBlock.innerHTML += `
       <label class="filter-panel filter-panel__checkbox"
         >${iterator} ${valueLabel}
-         <input data-value=${iterator} data-type=${filterObjs[key].name} type="checkbox" />
+         <input data-value=${iterator.toString().replace(" ", "-")} data-type=${
+        filterObjs[key].name
+      } type="checkbox" />
          <span class="filter-panel__checkmark"></span>
        </label>
       `;
@@ -316,7 +367,30 @@ function createFilters() {
     filterContainer.append(filterPanelItem);
   }
 
-  const form = document.querySelector(".filter-panel__block-price");
+  // function priceFilter(e) {
+  //   const currentInput = e.target;
+  //   const type = currentInput.dataset.category;
+  //   const maxValue = items.reduce((accum, nextvalue) => {
+  //     return nextvalue.price > accum ? nextvalue.price : accum;
+  //   }, 0);
+  //   const minValue = items.reduce((accum, nextvalue) => {
+  //     return nextvalue.price < accum ? nextvalue.price : accum;
+  //   }, Infinity);
+
+  //   setTimeout(() => {
+  //     if (Number(currentInput.value) < minValue) {
+  //       currentInput.value = minValue;
+  //     } else if (Number(currentInput.value) > maxValue) {
+  //       currentInput.value = maxValue;
+  //     }
+
+  //     // currentFilters[type] = currentInput.value;
+  //     handleFilterPosts(currentFilters);
+  //   }, 500);
+  // }
+
+  // form.addEventListener("input", priceFilter);
+
   const minPrice = document.querySelector("#price-from");
   const maxPrice = document.querySelector("#price-to");
 
@@ -325,12 +399,14 @@ function createFilters() {
     storage: [],
     os: [],
     display: [],
-    minValue: minPrice.value,
-    maxValue: maxPrice.value,
-    items: [],
+    price: [],
   };
 
-  function filtering() {
+  const filterPanel = document.querySelector(".filter-panel");
+
+  filterPanel.addEventListener("change", (e) => {
+    htmlContainer.innerHTML = "";
+
     const items = [...itemsArr];
 
     items.sort((a, b) => {
@@ -343,50 +419,23 @@ function createFilters() {
       return 0;
     });
 
-    if (minPrice.value < items[0].price) {
-      minPrice.value = items[0].price;
-    }
-    if (maxPrice.value >= items[items.length - 1].price) {
-      maxPrice.value = items[items.length - 1].price;
-    }
-
-    const prisecObj = {
-      minValue: minPrice.value,
-      maxValue: maxPrice.value,
-      items: [],
-    };
-
-    // if (maxPrice.value < minPrice.value) {
-    //   maxPrice.value = +minPrice.value + 1;
-    // }
-
-    prisecObj.items = items.filter((item) => {
-      return (
-        item.price > (prisecObj.minValue || items[0].price) &&
-        item.price < (prisecObj.maxValue || items[items.length - 1].price)
-      );
-    });
-
-    if (minPrice) {
-      htmlContainer.innerHTML = "";
-    }
-
-    prisecObj.items.forEach((item) => {
-      let card = renderItemCard(item);
-      htmlContainer.append(card);
-    });
-  }
-
-  form.addEventListener("change", filtering);
-
-  filterPanelItem.addEventListener("change", (e) => {
-    htmlContainer.innerHTML = "";
-
     const targetType = e.target.dataset.type;
-    const targetValue = e.target.dataset.value;
+    const targetValue = e.target.dataset.value
+      ? e.target.dataset.value.toString().replace("-", " ")
+      : e.target.value;
 
     if (e.target.checked) {
-      filterObj[targetType].push(targetValue);
+      if (typeof targetValue === "string") {
+        console.log(typeof targetValue === "string");
+        filterObj[targetType].push(targetValue);
+      }
+    } else if (minPrice.value || maxPrice.value) {
+      filterObj[targetType][0] =
+        minPrice.value >= items[0].price ? +minPrice.value : items[0].price;
+      filterObj[targetType][1] =
+        maxPrice.value == 0 || maxPrice.value >= items[items.length - 1].price
+          ? items[items.length - 1].price
+          : +maxPrice.value;
     } else {
       filterObj[targetType].splice(
         filterObj[targetType].indexOf(targetValue),
@@ -394,12 +443,19 @@ function createFilters() {
       );
     }
 
+    console.log(filterObj);
+
     const filteredArr = itemsArr.filter((item) => {
       let acc = true;
 
       for (const type in filterObj) {
         if (filterObj[type].length) {
-          if (Array.isArray(item[type])) {
+          if (typeof filterObj[type][0] === "number") {
+            acc =
+              acc &&
+              item.price >= filterObj[type][0] &&
+              item.price <= filterObj[type][1];
+          } else if (Array.isArray(item[type])) {
             acc = acc && filterObj[type].some((it) => item[type].includes(it));
           } else if (item[type]) {
             acc = acc && filterObj[type].includes(item[type].toString());
@@ -411,71 +467,11 @@ function createFilters() {
       return acc;
     });
 
-    // console.log(filterObj);
-    // console.log(filteredArr);
-
     filteredArr.forEach((item) => {
       let card = renderItemCard(item);
       htmlContainer.append(card);
     });
   });
-
-  // const form = document.querySelector(".filter-panel__block-price");
-  // const minPrice = document.querySelector("#price-from");
-  // const maxPrice = document.querySelector("#price-to");
-
-  // function filtering() {
-  //   const items = [...itemsArr];
-
-  //   items.sort((a, b) => {
-  //     if (a.price > b.price) {
-  //       return 1;
-  //     }
-  //     if (a.price < b.price) {
-  //       return -1;
-  //     }
-  //     return 0;
-  //   });
-
-  //   if (minPrice.value < items[0].price) {
-  //     minPrice.value = items[0].price;
-  //   }
-  //   if (maxPrice.value >= items[items.length - 1].price) {
-  //     maxPrice.value = items[items.length - 1].price;
-  //   }
-
-  //   const prisecObj = {
-  //     minValue: minPrice.value,
-  //     maxValue: maxPrice.value,
-  //     items: [],
-  //   };
-
-  //   if (maxPrice.value < minPrice.value) {
-  //     maxPrice.value = +minPrice.value + 1;
-  //     minPrice.value = +maxPrice.value - 1;
-  //   }
-  //   if (minPrice.value > maxPrice.value) {
-  //     minPrice.value = +maxPrice.value - 1;
-  //   }
-
-  //   prisecObj.items = items.filter((item) => {
-  //     return (
-  //       item.price > (prisecObj.minValue || items[0].price) &&
-  //       item.price < (prisecObj.maxValue || items[items.length - 1].price)
-  //     );
-  //   });
-
-  //   if (minPrice) {
-  //     htmlContainer.innerHTML = "";
-  //   }
-
-  //   prisecObj.items.forEach((item) => {
-  //     let card = renderItemCard(item);
-  //     htmlContainer.append(card);
-  //   });
-  // }
-
-  // form.addEventListener("change", filtering);
 }
 
 createFilters();
@@ -494,3 +490,37 @@ for (let i = 0; i < filterArr.length; i++) {
     }
   });
 }
+
+// const addCartBtn = document.querySelector(".add-cart-btn");
+// const shopCartContainer = document.querySelector(".shop-cart__item");
+// const shopCartBox = document.querySelector(".shop-cart");
+
+// addCartBtn.addEventListener("click", (item) => {
+//   console.log(e.target);
+
+//   if (item.orderInfo.inStock > 0) {
+//     shopCartArr.push(item);
+//   }
+
+//   if (shopCartArr.length) {
+//     shopCartArr.forEach((item) => {
+//       const div = document.createElement("div");
+//       div.innerHTML = `
+//       <img class="shop-cart__item-img" src="./img/${item.imgUrl}" />
+//           <div class="shop-cart__item-info">
+//             <h4 class="shop-cart__item-title">${item.name}</h4>
+//             <p class="shop-cart__item-price">$ ${item.price}</p>
+//           </div>
+//           <div class="shop-cart__item-btns">
+//             <button class="shop-cart__item-btn"><</button>
+//             <span>2</span>
+//             <button class="shop-cart__item-btn">></button>
+//           </div>
+//           <div class="shop-cart__item-close-btn-div">
+//             <button class="shop-cart__item-close-btn">x</button>
+//           </div>`;
+
+//       shopCartContainer.append(div);
+//     });
+//   }
+// });

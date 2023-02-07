@@ -264,6 +264,7 @@
   height: 20px;
   border: solid black 1px;
   border-radius: 50%;
+  cursor: pointer;
 }
 
 * {
@@ -449,6 +450,7 @@ img {
   background: #0e49b5;
   border: none;
   border-radius: 50%;
+  cursor: pointer;
 }
 
 .search-btn svg {

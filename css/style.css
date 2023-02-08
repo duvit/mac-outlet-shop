@@ -119,9 +119,21 @@
 }
 
 .shop-cart__item {
-  height: 128px;
-  display: grid;
-  grid-template-columns: 125px 145px 115px 10px;
+  height: 100%;
+  display: flex;
+  /* justify-content: space-between; */
+  width: 100%;
+  border: none !important;
+}
+
+#shop-cart__holder {
+  display: flex;
+  flex-direction: column;
+}
+
+.shop-cart__item > div {
+  display: flex;
+  border: none !important;
 }
 
 .shop-cart__item-img {
@@ -131,7 +143,7 @@
 }
 
 .shop-cart__item-info {
-  margin: 45px auto;
+  margin: auto;
   border: none !important;
 }
 
@@ -164,6 +176,9 @@
 .shop-cart__item-btns {
   height: 25px;
   margin: auto;
+  justify-content: space-between;
+  display: flex;
+  flex-direction: row;
   border: none !important;
 }
 
@@ -176,38 +191,35 @@
   font-style: normal;
   font-weight: 700;
   font-size: 16px;
-  line-height: 19px;
+  line-height: 1px;
   color: #ffffff;
   border: none;
+  margin: 0 20px 0;
 }
 
 .shop-cart__item-btns span {
   font-family: "Roboto";
   font-style: normal;
   font-weight: 700;
-  font-size: 20px;
-  line-height: 23px;
+  font-size: 22px;
+  line-height: 21px;
   color: #4191ff;
-}
-
-.shop-cart__item-close-btn-div {
-  border: none !important;
+  align-items: center;
 }
 
 .shop-cart__item-close-btn {
-  margin: 55px 0;
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   background: rgba(248, 50, 69, 0.15);
   border-radius: 2px;
   font-family: "Roboto";
   font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 19px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 11px;
   color: #f83245;
   border: none;
-  padding: 1%;
+  padding: 2px 0 3px 0;
 }
 
 .shop-cart__amount {
@@ -257,22 +269,19 @@
 
 .header__panel__logo {
   width: 120px;
+  margin: 15px 0 0 0;
 }
 
 .header__panel__cart {
-  width: 20px;
-  height: 20px;
+  width: 35px;
+  height: 35px;
   border: solid black 1px;
   border-radius: 50%;
   cursor: pointer;
+  margin: 15px 0 0 0;
+  padding: 2.7px;
 }
 
-* {
-  box-sizing: border-box;
-}
-body {
-  font-family: Verdana, sans-serif;
-}
 .mySlides {
   display: none;
 }
@@ -361,6 +370,7 @@ img {
   background: #0e49b5;
   border-radius: 5px;
   border: none;
+  cursor: pointer;
 }
 
 .add-cart-btn_detail-cart {

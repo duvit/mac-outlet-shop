@@ -37,14 +37,11 @@ function showCart() {
     }
   });
 }
-
 showCart();
 
 //Slider script
 var slideIndex = 0;
 showSlides();
-
-const shopCartArr = [];
 
 function showSlides() {
   let i;
@@ -66,8 +63,6 @@ function showSlides() {
 
 const itemsArr = [...items2];
 const htmlContainer = document.querySelector(".container");
-
-const cardTemplate = document.querySelector("#cardTemplate");
 
 function renderItemCard(item) {
   let div = document.createElement("div");
@@ -138,52 +133,64 @@ itemsArr.forEach((item) => {
   htmlContainer.append(card);
 });
 
-const addCartBtn = document.querySelectorAll(".add-cart-btn");
-// const shopCartContainer = document.querySelector(".shop-cart__item");
+const addCartBtn = [...document.querySelectorAll(".add-cart-btn")];
 const shopCartBox = document.querySelector(".shop-cart");
 
-addCartBtn.forEach((it) => {
-  it.addEventListener("click", (item) => {
-    const itemIndex = itemsArr.findIndex((item) => {
-      item.id === it.parentElement.dataset.id;
-    });
+const shopCartArr = [];
 
-    if (itemsArr[itemIndex].orderInfo.inStock > 0) {
-      shopCartArr.push(itemsArr[itemIndex]);
-    }
+addCartBtn.forEach((btn) => {
+  btn.addEventListener("click", function (e) {
+    e.stopPropagation();
 
-    if (shopCartArr.length) {
-      shopCartArr.forEach((itemIndex) => {
-        const div = document.createElement("div");
-        div.innerHTML = `
-        <div>
-          <h2 class="shop-cart__title">Shopping Cart</h2>
-          <p class="shop-cart__title-info">Checkout is almost done!</p>
-        </div>
+    // const itemsToCart = itemsArr.forEach((item) => item.toCart = 0);
+    const itemsToCart = [...itemsArr];
+
+    let itemToCart = null;
+
+    let div = document.createElement("div");
+
+    const shopCartContainer = document.querySelector("#shop-cart__holder");
+
+    if (shopCartArr.length < 4) {
+      itemsToCart.forEach((item) => {
+        if (item.id === +e.target.parentElement.dataset.id) {
+          itemToCart = item;
+        }
+      });
+
+      if (shopCartArr.includes(itemToCart)) {
+        itemToCart.inCart++;
+      } else if (itemToCart.orderInfo.inStock > 0) {
+        shopCartContainer.innerHTML = "";
+        itemToCart.inCart = 1;
+        shopCartArr.push(itemToCart);
+      }
+
+      if (shopCartArr.length) {
+        shopCartArr.forEach((itemInCart) => {
+          div.innerHTML = `
+        
         <div class="shop-cart__item">
-        <img class="shop-cart__item-img" src="./img/${itemIndex.imgUrl}" />
+        <img class="shop-cart__item-img" src="./img/${itemInCart.imgUrl}" />
           <div class="shop-cart__item-info">
-            <h4 class="shop-cart__item-title">${itemIndex.name}</h4>
-            <p class="shop-cart__item-price">$ ${itemIndex.price}</p>
+            <h4 class="shop-cart__item-title">${itemInCart.name}</h4>
+            <p class="shop-cart__item-price">$ ${itemInCart.price}</p>
           </div>
           <div class="shop-cart__item-btns">
             <button class="shop-cart__item-btn"><</button>
-            <span>2</span>
+            <span>${itemInCart.inCart}</span>
             <button class="shop-cart__item-btn">></button>
-          </div>
-          <div class="shop-cart__item-close-btn-div">
-            <button class="shop-cart__item-close-btn">x</button>
-          </div>
-          </div>
-          <div class="shop-cart__amount">
-            <span>Total amount: <span>3 ptc. </span></span>
-            <span>Total price: <span>1699$</span> </span>
-          </div>
-          <button class="shop-cart__btn">Buy</button>`;
+            <button class="shop-cart__item-btn shop-cart__item-close-btn">
+              x
+            </button>
+          </div>`;
 
-        shopCartBox.append(div);
-      });
+          shopCartContainer.append(div);
+        });
+      }
     }
+
+    console.log(shopCartArr);
   });
 });
 
@@ -367,30 +374,6 @@ function createFilters() {
     filterContainer.append(filterPanelItem);
   }
 
-  // function priceFilter(e) {
-  //   const currentInput = e.target;
-  //   const type = currentInput.dataset.category;
-  //   const maxValue = items.reduce((accum, nextvalue) => {
-  //     return nextvalue.price > accum ? nextvalue.price : accum;
-  //   }, 0);
-  //   const minValue = items.reduce((accum, nextvalue) => {
-  //     return nextvalue.price < accum ? nextvalue.price : accum;
-  //   }, Infinity);
-
-  //   setTimeout(() => {
-  //     if (Number(currentInput.value) < minValue) {
-  //       currentInput.value = minValue;
-  //     } else if (Number(currentInput.value) > maxValue) {
-  //       currentInput.value = maxValue;
-  //     }
-
-  //     // currentFilters[type] = currentInput.value;
-  //     handleFilterPosts(currentFilters);
-  //   }, 500);
-  // }
-
-  // form.addEventListener("input", priceFilter);
-
   const minPrice = document.querySelector("#price-from");
   const maxPrice = document.querySelector("#price-to");
 
@@ -426,7 +409,6 @@ function createFilters() {
 
     if (e.target.checked) {
       if (typeof targetValue === "string") {
-        console.log(typeof targetValue === "string");
         filterObj[targetType].push(targetValue);
       }
     } else if (minPrice.value || maxPrice.value) {
@@ -442,8 +424,6 @@ function createFilters() {
         1
       );
     }
-
-    console.log(filterObj);
 
     const filteredArr = itemsArr.filter((item) => {
       let acc = true;
@@ -490,37 +470,3 @@ for (let i = 0; i < filterArr.length; i++) {
     }
   });
 }
-
-// const addCartBtn = document.querySelector(".add-cart-btn");
-// const shopCartContainer = document.querySelector(".shop-cart__item");
-// const shopCartBox = document.querySelector(".shop-cart");
-
-// addCartBtn.addEventListener("click", (item) => {
-//   console.log(e.target);
-
-//   if (item.orderInfo.inStock > 0) {
-//     shopCartArr.push(item);
-//   }
-
-//   if (shopCartArr.length) {
-//     shopCartArr.forEach((item) => {
-//       const div = document.createElement("div");
-//       div.innerHTML = `
-//       <img class="shop-cart__item-img" src="./img/${item.imgUrl}" />
-//           <div class="shop-cart__item-info">
-//             <h4 class="shop-cart__item-title">${item.name}</h4>
-//             <p class="shop-cart__item-price">$ ${item.price}</p>
-//           </div>
-//           <div class="shop-cart__item-btns">
-//             <button class="shop-cart__item-btn"><</button>
-//             <span>2</span>
-//             <button class="shop-cart__item-btn">></button>
-//           </div>
-//           <div class="shop-cart__item-close-btn-div">
-//             <button class="shop-cart__item-close-btn">x</button>
-//           </div>`;
-
-//       shopCartContainer.append(div);
-//     });
-//   }
-// });

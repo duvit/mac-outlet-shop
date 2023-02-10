@@ -61,6 +61,60 @@ function showSlides() {
   setTimeout(showSlides, 3000);
 }
 
+const shopCartBox = document.querySelector(".shop-cart");
+
+const shopCartArr = [];
+
+function addToCart(e) {
+  const itemsToCart = [...itemsArr];
+
+  let itemToCart = null;
+
+  let div = document.createElement("div");
+
+  const shopCartContainer = document.querySelector("#shop-cart__holder");
+
+  if (shopCartArr.length < 4) {
+    itemsToCart.forEach((item) => {
+      if (item.id === +e.target.parentElement.dataset.id) {
+        itemToCart = item;
+      }
+    });
+
+    if (shopCartArr.includes(itemToCart)) {
+      itemToCart.inCart++;
+    } else if (itemToCart.orderInfo.inStock > 0) {
+      shopCartContainer.innerHTML = "";
+      itemToCart.inCart = 1;
+      shopCartArr.push(itemToCart);
+    }
+
+    if (shopCartArr.length) {
+      shopCartArr.forEach((itemInCart) => {
+        div.innerHTML = `
+
+        <div class="shop-cart__item">
+        <img class="shop-cart__item-img" src="./img/${itemInCart.imgUrl}" />
+          <div class="shop-cart__item-info">
+            <h4 class="shop-cart__item-title">${itemInCart.name}</h4>
+            <p class="shop-cart__item-price">$ ${itemInCart.price}</p>
+          </div>
+          <div class="shop-cart__item-btns">
+            <button class="shop-cart__item-btn"><</button>
+            <span>${itemInCart.inCart}</span>
+            <button class="shop-cart__item-btn">></button>
+            <button class="shop-cart__item-btn shop-cart__item-close-btn">
+              x
+            </button>
+          </div>`;
+
+        shopCartContainer.append(div);
+      });
+    }
+  }
+  console.log(shopCartArr);
+}
+
 const itemsArr = [...items2];
 const htmlContainer = document.querySelector(".container");
 
@@ -88,6 +142,14 @@ function renderItemCard(item) {
     btnActivity = "item-box__btn-disable";
   }
 
+  const addBtn = document.createElement("button");
+  addBtn.innerText = "Add to cart";
+  addBtn.classList = "add-cart-btn  ${btnActivity}";
+  addBtn.id = "itemBoxbtn";
+
+  // addBtn.onclick = "stopPropagation()";
+  addBtn.onclick = addToCart(addBtn);
+
   div.innerHTML = `<button class="item-box__like">
   <img src="./img/icons/like_empty.svg" alt="" />
     </button>
@@ -107,7 +169,7 @@ function renderItemCard(item) {
     </div>
     <h5 class="item-box__price">Price: <span id="itemPrice">${item.price}</span> $</h5>
   </div>
-  <button class="add-cart-btn ${btnActivity}" id="itemBoxbtn">Add to cart</button>
+  
   <div class="item-box__stats">
     <div class="item-box__reviews">
       <p><span>${item.orderInfo.reviews}</span> Positive reviews</p>
@@ -133,67 +195,6 @@ itemsArr.forEach((item) => {
   htmlContainer.append(card);
 });
 
-const addCartBtn = [...document.querySelectorAll(".add-cart-btn")];
-const shopCartBox = document.querySelector(".shop-cart");
-
-const shopCartArr = [];
-
-addCartBtn.forEach((btn) => {
-  btn.addEventListener("click", function (e) {
-    e.stopPropagation();
-
-    // const itemsToCart = itemsArr.forEach((item) => item.toCart = 0);
-    const itemsToCart = [...itemsArr];
-
-    let itemToCart = null;
-
-    let div = document.createElement("div");
-
-    const shopCartContainer = document.querySelector("#shop-cart__holder");
-
-    if (shopCartArr.length < 4) {
-      itemsToCart.forEach((item) => {
-        if (item.id === +e.target.parentElement.dataset.id) {
-          itemToCart = item;
-        }
-      });
-
-      if (shopCartArr.includes(itemToCart)) {
-        itemToCart.inCart++;
-      } else if (itemToCart.orderInfo.inStock > 0) {
-        shopCartContainer.innerHTML = "";
-        itemToCart.inCart = 1;
-        shopCartArr.push(itemToCart);
-      }
-
-      if (shopCartArr.length) {
-        shopCartArr.forEach((itemInCart) => {
-          div.innerHTML = `
-        
-        <div class="shop-cart__item">
-        <img class="shop-cart__item-img" src="./img/${itemInCart.imgUrl}" />
-          <div class="shop-cart__item-info">
-            <h4 class="shop-cart__item-title">${itemInCart.name}</h4>
-            <p class="shop-cart__item-price">$ ${itemInCart.price}</p>
-          </div>
-          <div class="shop-cart__item-btns">
-            <button class="shop-cart__item-btn"><</button>
-            <span>${itemInCart.inCart}</span>
-            <button class="shop-cart__item-btn">></button>
-            <button class="shop-cart__item-btn shop-cart__item-close-btn">
-              x
-            </button>
-          </div>`;
-
-          shopCartContainer.append(div);
-        });
-      }
-    }
-
-    console.log(shopCartArr);
-  });
-});
-
 const container = document.querySelectorAll(".item-box");
 
 function createModalWindow(item) {
@@ -216,6 +217,10 @@ function createModalWindow(item) {
   } else {
     itemOs = "";
   }
+
+  const addBtn = `<button class="add-cart-btn ${btnActivity}" id="itemBoxbtn">Add to cart</button>`;
+
+  addBtn.onclick = addToCart(this);
 
   detailCart.innerHTML = `<div class="detail-cart__item">
   <img
@@ -259,6 +264,9 @@ function createModalWindow(item) {
         <p class="detail-cart__char">
           Weight: <span>${item.size.weight} g</span>
         </p>
+        <p class="detail-cart__char">
+          Display: <span>${item.display} inch</span>
+        </p>
       </div>
     </div>
       <div class="detail-cart__item">
@@ -267,9 +275,7 @@ function createModalWindow(item) {
             Stock:
             <span class="item-stock-span">${item.orderInfo.inStock}</span> pcs.
           </p>
-          <button class="add-cart-btn add-cart-btn_detail-cart ${btnActivity}">
-            Add to cart
-          </button>
+          ${addBtn}
         </div>`;
   modalContent.append(detailCart);
   modal.style.display = "block";
@@ -359,15 +365,25 @@ function createFilters() {
     filterPanelBlock.innerHTML = "";
 
     for (const iterator of filterObjs[key].options) {
-      filterPanelBlock.innerHTML += `
+      if (filterObjs[key].displayName === "Display") {
+        filterPanelBlock.innerHTML += `
       <label class="filter-panel filter-panel__checkbox"
         >${iterator} ${valueLabel}
-         <input data-value=${iterator.toString().replace(" ", "-")} data-type=${
-        filterObjs[key].name
-      } type="checkbox" />
+         <input data-value=${iterator} data-type=${filterObjs[key].name} type="checkbox" />
          <span class="filter-panel__checkmark"></span>
        </label>
       `;
+      } else {
+        filterPanelBlock.innerHTML += `
+      <label class="filter-panel filter-panel__checkbox"
+        >${iterator} ${valueLabel}
+         <input data-value=${iterator.toString().replace(" ", "-")} data-type=${
+          filterObjs[key].name
+        } type="checkbox" />
+         <span class="filter-panel__checkmark"></span>
+       </label>
+      `;
+      }
     }
 
     filterPanelItem.append(filterPanelBlock);
@@ -409,21 +425,27 @@ function createFilters() {
 
     if (e.target.checked) {
       if (typeof targetValue === "string") {
+        // if (targetType !== "display") {
         filterObj[targetType].push(targetValue);
+        // }
       }
-    } else if (minPrice.value || maxPrice.value) {
-      filterObj[targetType][0] =
-        minPrice.value >= items[0].price ? +minPrice.value : items[0].price;
-      filterObj[targetType][1] =
-        maxPrice.value == 0 || maxPrice.value >= items[items.length - 1].price
-          ? items[items.length - 1].price
-          : +maxPrice.value;
     } else {
       filterObj[targetType].splice(
         filterObj[targetType].indexOf(targetValue),
         1
       );
     }
+    if (minPrice.value || maxPrice.value) {
+      filterObj.price[0] =
+        minPrice.value >= items[0].price ? +minPrice.value : items[0].price;
+      filterObj.price[1] =
+        maxPrice.value == 0 || maxPrice.value >= items[items.length - 1].price
+          ? items[items.length - 1].price
+          : +maxPrice.value;
+    }
+    // if (targetType === "display") {
+    //   filterObj.display.push(targetValue.split(" "));
+    // }
 
     const filteredArr = itemsArr.filter((item) => {
       let acc = true;
@@ -435,6 +457,14 @@ function createFilters() {
               acc &&
               item.price >= filterObj[type][0] &&
               item.price <= filterObj[type][1];
+            // } else if (targetType === "display") {
+            //   for (const values of filterObj.display) {
+            //     // debugger;
+            //     if (item.display > +values[0] && item.display < +values[1]) {
+            //       console.log(item.display < +values[1]);
+            //       acc = acc && item.display;
+            //     }
+            //   }
           } else if (Array.isArray(item[type])) {
             acc = acc && filterObj[type].some((it) => item[type].includes(it));
           } else if (item[type]) {

@@ -84,7 +84,7 @@
   box-shadow: 0px 4px 40px rgba(0, 0, 0, 0.4);
   width: 434px;
   border-radius: 5px;
-  position: absolute;
+  position: fixed;
   left: 0;
   right: 0;
   z-index: 5;
@@ -121,7 +121,7 @@
 .shop-cart__item {
   height: 100%;
   display: flex;
-  /* justify-content: space-between; */
+  /* justify-content: space-around; */
   width: 100%;
   border: none !important;
 }
@@ -171,12 +171,14 @@
   border-radius: 3px;
   text-align: center;
   padding: 2.5%;
+  display: inline-block;
+  width: 70px;
 }
 
 .shop-cart__item-btns {
   height: 25px;
   margin: auto;
-  justify-content: space-between;
+  justify-content: space-around;
   display: flex;
   flex-direction: row;
   border: none !important;
@@ -265,6 +267,7 @@
   display: flex;
   justify-content: space-between;
   margin: 10px auto;
+  position: relative;
 }
 
 .header__panel__logo {
@@ -280,6 +283,25 @@
   cursor: pointer;
   margin: 15px 0 0 0;
   padding: 2.7px;
+}
+
+#cartAmount {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  right: 24px;
+  top: 35px;
+  border-radius: 50%;
+  background: #0e49b5;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 16px;
+  padding: 5px 0px 0px 0px;
+  text-align: center;
+  color: #ffffff;
+  display: none;
 }
 
 .mySlides {

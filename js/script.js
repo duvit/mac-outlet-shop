@@ -63,59 +63,100 @@ function showSlides() {
 
 const shopCartBox = document.querySelector(".shop-cart");
 
+const itemsArr = [...items2];
 const shopCartArr = [];
 
-function addToCart(e) {
+function addToCart(it) {
   const itemsToCart = [...itemsArr];
-
-  let itemToCart = null;
-
-  let div = document.createElement("div");
+  this.event.stopPropagation();
 
   const shopCartContainer = document.querySelector("#shop-cart__holder");
+  const amountOutput = document.querySelector("#cartAmount");
+
+  function renderCart(item) {
+    const div = document.createElement("div");
+
+    div.innerHTML = `
+          <div class="shop-cart__item">
+          <img class="shop-cart__item-img" src="./img/${item.item.imgUrl}" />
+            <div class="shop-cart__item-info">
+              <h4 class="shop-cart__item-title">${item.item.name}</h4>
+              <p class="shop-cart__item-price">$ ${item.item.price}</p>
+            </div>
+            <div class="shop-cart__item-btns">
+              <button class="shop-cart__item-btn"><</button>
+              <span>${item.amount}</span>
+              <button class="shop-cart__item-btn">></button>
+              <button class="shop-cart__item-btn shop-cart__item-close-btn">
+                x
+              </button>
+            </div>`;
+
+    return div;
+  }
 
   if (shopCartArr.length < 4) {
+    shopCartContainer.innerHTML = "";
+
+    let itemToCart = null;
+
     itemsToCart.forEach((item) => {
-      if (item.id === +e.target.parentElement.dataset.id) {
+      if (
+        item.id == it.parentElement.dataset.id ||
+        item.id == it.parentElement.parentElement.dataset.id
+      )
         itemToCart = item;
-      }
     });
 
-    if (shopCartArr.includes(itemToCart)) {
-      itemToCart.inCart++;
-    } else if (itemToCart.orderInfo.inStock > 0) {
-      shopCartContainer.innerHTML = "";
-      itemToCart.inCart = 1;
-      shopCartArr.push(itemToCart);
+    let amountAcc = 1;
+    for (const it of shopCartArr) {
+      amountAcc += it.amount;
     }
 
-    if (shopCartArr.length) {
-      shopCartArr.forEach((itemInCart) => {
-        div.innerHTML = `
+    amountOutput.innerText = amountAcc;
 
-        <div class="shop-cart__item">
-        <img class="shop-cart__item-img" src="./img/${itemInCart.imgUrl}" />
-          <div class="shop-cart__item-info">
-            <h4 class="shop-cart__item-title">${itemInCart.name}</h4>
-            <p class="shop-cart__item-price">$ ${itemInCart.price}</p>
-          </div>
-          <div class="shop-cart__item-btns">
-            <button class="shop-cart__item-btn"><</button>
-            <span>${itemInCart.inCart}</span>
-            <button class="shop-cart__item-btn">></button>
-            <button class="shop-cart__item-btn shop-cart__item-close-btn">
-              x
-            </button>
-          </div>`;
+    if (!shopCartArr.length) {
+      shopCartArr.push({ item: itemToCart, amount: 1 });
+      amountOutput.style.display = "block";
+    } else {
+      amountOutput.style.display = "block";
+      const i = shopCartArr.length;
 
-        shopCartContainer.append(div);
-      });
+      for (let index = 0; index < i; index++) {
+        const element = shopCartArr[index];
+        if (JSON.stringify(element.item) === JSON.stringify(itemToCart)) {
+          if (element.amount < 4) {
+            element.amount++;
+          }
+        } else {
+          shopCartArr.push({ item: itemToCart, amount: 1 });
+        }
+      }
     }
+
+    const shopCartTotalAmount = document.querySelector("#shopCartTotalAmount");
+    const shopCartTotalPrice = document.querySelector("#shopCartTotalPrice");
+
+    let totalAmountInCart = 0;
+    let totalPriceInCart = 0;
+
+    for (const item of shopCartArr) {
+      totalAmountInCart += item.amount;
+      totalPriceInCart += item.item.price * item.amount;
+    }
+
+    shopCartTotalAmount.innerText = totalAmountInCart;
+    shopCartTotalPrice.innerText = totalPriceInCart;
+
+    shopCartArr.forEach((item) => {
+      let card = renderCart(item);
+      shopCartContainer.append(card);
+    });
+
+    console.log(shopCartArr);
   }
-  console.log(shopCartArr);
 }
 
-const itemsArr = [...items2];
 const htmlContainer = document.querySelector(".container");
 
 function renderItemCard(item) {
@@ -142,13 +183,7 @@ function renderItemCard(item) {
     btnActivity = "item-box__btn-disable";
   }
 
-  const addBtn = document.createElement("button");
-  addBtn.innerText = "Add to cart";
-  addBtn.classList = "add-cart-btn  ${btnActivity}";
-  addBtn.id = "itemBoxbtn";
-
-  // addBtn.onclick = "stopPropagation()";
-  addBtn.onclick = addToCart(addBtn);
+  div.dataset.id = item.id;
 
   div.innerHTML = `<button class="item-box__like">
   <img src="./img/icons/like_empty.svg" alt="" />
@@ -169,7 +204,9 @@ function renderItemCard(item) {
     </div>
     <h5 class="item-box__price">Price: <span id="itemPrice">${item.price}</span> $</h5>
   </div>
-  
+  <button class="add-cart-btn add-cart-btn_detail-cart ${btnActivity}" onclick="addToCart(this)">
+    Add to cart
+  </button>
   <div class="item-box__stats">
     <div class="item-box__reviews">
       <p><span>${item.orderInfo.reviews}</span> Positive reviews</p>
@@ -180,8 +217,6 @@ function renderItemCard(item) {
       <p>orders</p>
     </div>
   </div>`;
-
-  div.dataset.id = item.id;
 
   div.addEventListener("click", function () {
     createModalWindow(item);
@@ -200,6 +235,7 @@ const container = document.querySelectorAll(".item-box");
 function createModalWindow(item) {
   let detailCart = document.createElement("div");
   detailCart.classList = "detail-cart";
+  detailCart.dataset.id = item.id;
 
   const modalContent = document.querySelector(".modal-content");
   modalContent.innerHTML = "";
@@ -217,10 +253,6 @@ function createModalWindow(item) {
   } else {
     itemOs = "";
   }
-
-  const addBtn = `<button class="add-cart-btn ${btnActivity}" id="itemBoxbtn">Add to cart</button>`;
-
-  addBtn.onclick = addToCart(this);
 
   detailCart.innerHTML = `<div class="detail-cart__item">
   <img
@@ -275,7 +307,9 @@ function createModalWindow(item) {
             Stock:
             <span class="item-stock-span">${item.orderInfo.inStock}</span> pcs.
           </p>
-          ${addBtn}
+          <button class="add-cart-btn add-cart-btn_detail-cart ${btnActivity}" onclick="addToCart(this)">
+            Add to cart
+          </button>
         </div>`;
   modalContent.append(detailCart);
   modal.style.display = "block";
@@ -289,17 +323,7 @@ window.onclick = function (event) {
   }
 };
 
-function createShopCart() {}
-
 const shopCart = document.getElementById("shopCart");
-
-window.onclick = function (event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-};
-
-function filterItems() {}
 
 function createFilters() {
   const filterObjs = [
